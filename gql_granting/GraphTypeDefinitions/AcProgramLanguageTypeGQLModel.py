@@ -83,8 +83,3 @@ async def program_language_by_id(
         result = await AcProgramLanguageTypeGQLModel.resolve_reference(info, id)
         return result
 
-#################################################
-#
-# Special fields for mutation
-#
-#################################################

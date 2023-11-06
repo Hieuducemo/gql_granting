@@ -55,8 +55,3 @@ async def program_form_by_id(
         return result
 
 
-#################################################
-#
-# Special fields for mutation
-#
-#################################################

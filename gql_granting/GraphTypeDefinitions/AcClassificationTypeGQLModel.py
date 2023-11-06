@@ -54,8 +54,3 @@ async def acclassification_type_page(
         result = await loader.page(skip, limit)
         return result
 
-#################################################
-#
-# Special fields for mutation
-#
-#################################################

@@ -36,15 +36,3 @@ class AcClassificationLevelGQLModel:
     def name_en(self) -> str:
         return self.name_en
     
-#################################################
-#
-# Special fields for query
-#
-#################################################
-
-
-#################################################
-#
-# Special fields for mutation
-#
-#################################################

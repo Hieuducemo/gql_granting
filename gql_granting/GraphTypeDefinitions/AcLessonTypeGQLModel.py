@@ -57,8 +57,4 @@ async def aclesson_type_page(
         loader = getLoaders(info).lessontypes
         rows = await loader.execute_select(loader.getSelectStatement())
         return rows
-#################################################
-#
-# Special fields for mutation
-#
-#################################################
+

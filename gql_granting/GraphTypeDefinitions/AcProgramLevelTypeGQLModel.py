@@ -51,8 +51,3 @@ async def program_level_by_id(
         result = await AcProgramLevelTypeGQLModel.resolve_reference(info, id)
         return result
 
-#################################################
-#
-# Special fields for mutation
-#
-#################################################

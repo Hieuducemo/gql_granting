@@ -51,8 +51,4 @@ async def program_title_by_id(
         result = await AcProgramTitleTypeGQLModel.resolve_reference(info, id)
         return result
 
-#################################################
-#
-# Special fields for mutation
-#
-#################################################
+
