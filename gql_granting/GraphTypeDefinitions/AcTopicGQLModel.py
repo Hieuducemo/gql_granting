@@ -3,8 +3,8 @@ import datetime
 import asyncio
 import strawberry as strawberryA
 
-from .AcSemesterGQLModel import AcSemesterGQLModel
-from .AcLessonGQLModel import AcLessonGQLModel
+#from .AcSemesterGQLModel import AcSemesterGQLModel
+#from .AcLessonGQLModel import AcLessonGQLModel
 
 from typing import Optional, List, Union, Annotated
 def getLoaders(info):
@@ -12,10 +12,8 @@ def getLoaders(info):
 def getUser(info):
     return info.context["user"]
 
-UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
-
-
-
+AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemesterGQLModel")]
+AcLessonGQLModel= Annotated["AcLessonGQLModel",strawberryA.lazy(".AcLessonGQLModel")]
 
 @strawberryA.federation.type(
     keys=["id"],

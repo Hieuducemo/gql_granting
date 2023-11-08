@@ -4,15 +4,16 @@ import asyncio
 import strawberry as strawberryA
 
 from typing import Optional, List, Union, Annotated
-from .AcSemesterGQLModel import AcSemesterGQLModel
+#from .AcSemesterGQLModel import AcSemesterGQLModel
 from .AcClassificationLevelGQLModel import AcClassificationLevelGQLModel
+
 
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
     return info.context["user"]
 
-UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
+AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemesterGQLModel")]
 
 @strawberryA.federation.type(
     keys=["id"],

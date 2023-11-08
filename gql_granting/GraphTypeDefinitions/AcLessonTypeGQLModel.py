@@ -10,7 +10,7 @@ def getLoaders(info):
 def getUser(info):
     return info.context["user"]
 
-UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
+#UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
 
 @strawberryA.federation.type(keys=["id"], description="P, C, LC, S, ...")
 class AcLessonTypeGQLModel:

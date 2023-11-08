@@ -1,21 +1,23 @@
-import strawberry
+
 import datetime
 import asyncio
 import strawberry as strawberryA
 
 from typing import Optional, List, Union, Annotated
-from .AcSubjectGQLModel import AcSubjectGQLModel
-from .AcProgramTypeGQLModel import AcProgramTypeGQLModel
+#from .AcSubjectGQLModel import AcSubjectGQLModel
+#from .AcProgramTypeGQLModel import AcProgramTypeGQLModel
 from .AcProgramEditorGQLModel import AcProgramEditorGQLModel
-from .externals import GroupGQLModel
+#from .externals import GroupGQLModel,UserGQLModel
 
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
     return info.context["user"]
 
-UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
-
+UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".external")]
+AcSubjectGQLModel = Annotated["AcSubjectGQLModel",strawberryA.lazy(".AcSubjectGQLModel")]
+AcProgramTypeGQLModel = Annotated["AcProgramTypeGQLModel",strawberryA.lazy(".AcProgramTypeGQLModel")]
+GroupGQLModel= Annotated["GroupGQLModel",strawberryA.lazy(".external")]
 @strawberryA.federation.type(
     keys=["id"], description="""Entity representing acredited study programs"""
 )
@@ -112,7 +114,7 @@ async def program_page(
 #################################################
 from typing import Optional
 
-@strawberryA.input
+@strawberryA.input(description="Define input for the program" )
 class ProgramInsertGQLModel:
     name: str
     type_id: strawberryA.ID

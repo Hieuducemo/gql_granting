@@ -5,13 +5,13 @@ import strawberry as strawberryA
 
 from typing import Optional, List, Union, Annotated
 from .AcLessonTypeGQLModel import AcLessonTypeGQLModel
-from .AcTopicGQLModel import AcTopicGQLModel
+#from .AcTopicGQLModel import AcTopicGQLModel
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
     return info.context["user"]
 
-UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
+AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel")]
 
 @strawberryA.federation.type(
     keys=["id"],

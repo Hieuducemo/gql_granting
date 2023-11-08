@@ -1,11 +1,11 @@
-from typing import List, Union, Optional
+from typing import List, Union, Optional, Annotated
 import strawberry 
 import strawberry as strawberryA
-from .AcProgramGQLModel import AcProgramGQLModel
+#from .AcProgramGQLModel import AcProgramGQLModel
 from contextlib import asynccontextmanager
 from gql_granting.GraphResolvers import resolveProgramForGroup, resolveJSONForProgram
 from .AcClassificationGQLModel import AcClassificationGQLModel
-
+AcProgramGQLModel= Annotated["AcProgramGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
 @asynccontextmanager
 async def withInfo(info):
     asyncSessionMaker = info.context["asyncSessionMaker"]

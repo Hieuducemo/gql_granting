@@ -4,17 +4,17 @@ import strawberry as strawberryA
 
 from typing import Optional, List, Union, Annotated
 from .AcSubjectGQLModel import AcSubjectGQLModel
-from .AcTopicGQLModel import AcTopicGQLModel
+#from .AcTopicGQLModel import AcTopicGQLModel
 from .AcClassificationTypeGQLModel import AcClassificationTypeGQLModel
-from .AcClassificationGQLModel import AcClassificationGQLModel
+#from .AcClassificationGQLModel import AcClassificationGQLModel
 
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
     return info.context["user"]
 
-UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
-
+AcClassificationGQLModel= Annotated["AcClassificationGQLModel",strawberryA.lazy(".AcClassificationGQLModel")]
+AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel")]
 @strawberryA.federation.type(
     keys=["id"], description="""Entity representing each semester in study subject"""
 )
