@@ -18,6 +18,7 @@ UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".external")]
 AcSubjectGQLModel = Annotated["AcSubjectGQLModel",strawberryA.lazy(".AcSubjectGQLModel")]
 AcProgramTypeGQLModel = Annotated["AcProgramTypeGQLModel",strawberryA.lazy(".AcProgramTypeGQLModel")]
 GroupGQLModel= Annotated["GroupGQLModel",strawberryA.lazy(".external")]
+
 @strawberryA.federation.type(
     keys=["id"], description="""Entity representing acredited study programs"""
 )

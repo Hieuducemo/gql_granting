@@ -18,7 +18,7 @@ def getUser(info):
 #UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
 
 AcProgramGQLModel = Annotated["AcProgramGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
-
+AcSemesterGQLModel =Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemesterGQLModel")]
 
 @strawberryA.federation.type(
     keys=["id"],
