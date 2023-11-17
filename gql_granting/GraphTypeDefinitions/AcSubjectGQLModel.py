@@ -55,6 +55,7 @@ class AcSubjectGQLModel:
 
     @strawberryA.field(description="""Program owing this subjects""")
     async def program(self, info: strawberryA.types.Info) -> "AcProgramGQLModel":
+        from .AcProgramGQLModel import AcProgramGQLModel
         result = await AcProgramGQLModel.resolve_reference(info, self.program_id)
         return result
 

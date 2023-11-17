@@ -5,6 +5,7 @@ import strawberry as strawberryA
 from contextlib import asynccontextmanager
 from gql_granting.GraphResolvers import resolveProgramForGroup, resolveJSONForProgram
 from .AcClassificationGQLModel import AcClassificationGQLModel
+
 AcProgramGQLModel= Annotated["AcProgramGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
 @asynccontextmanager
 async def withInfo(info):
@@ -51,6 +52,7 @@ class UserGQLModel:
 
     @strawberryA.field(description="""List of programs which the user is studying""")
     async def study_programs(self, info: strawberryA.types.Info) -> List['AcProgramGQLModel']:
+         
         loader = getLoaders(info).programstudents
         result = await loader.filter_by(student_id=self.id)       
         return result

@@ -1,19 +1,19 @@
 
 import datetime
 import strawberry as strawberryA
-from typing import Annotated,Union, Optional
-#from .AcProgramGQLModel import ProgramUpdateGQLModel
+from typing import Union, Optional
+from .AcProgramGQLModel import ProgramUpdateGQLModel
 from .AcProgramFormTypeGQLModel import AcProgramFormTypeGQLModel
 from .AcProgramTitleTypeGQLModel import AcProgramTitleTypeGQLModel
 from .AcProgramLevelTypeGQLModel import AcProgramLevelTypeGQLModel
 from .AcProgramLanguageTypeGQLModel import AcProgramLanguageTypeGQLModel 
 
-def getLoaders(info):
+def getLoaders(info):    
     return info.context['all']
 def getUser(info):
     return info.context["user"]
 
-ProgramUpdateGQLModel= Annotated["ProgramUpdateGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
+#ProgramUpdateGQLModel= Annotated["ProgramUpdateGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
 
 @strawberryA.federation.type(
     keys=["id"],
@@ -123,7 +123,7 @@ async def program_type_insert(self, info: strawberryA.types.Info, program_type: 
         result.msg = "ok"
         result.id = row.id
         return result
-
+    
 @strawberryA.mutation(description="""Update the study program type""")
 async def program_type_update(self, info: strawberryA.types.Info, program_type: ProgramUpdateGQLModel) -> ProgramTypeResultGQLModel:
         loader = getLoaders(info).programtypes
@@ -133,5 +133,6 @@ async def program_type_update(self, info: strawberryA.types.Info, program_type: 
         result.id = program_type.id
         if row is None:
             result.msg = "fail"
-            
+             
         return result
+    

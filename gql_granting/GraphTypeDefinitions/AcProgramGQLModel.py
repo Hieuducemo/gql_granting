@@ -4,20 +4,17 @@ import asyncio
 import strawberry as strawberryA
 
 from typing import Optional, List, Union, Annotated
-#from .AcSubjectGQLModel import AcSubjectGQLModel
-#from .AcProgramTypeGQLModel import AcProgramTypeGQLModel
 from .AcProgramEditorGQLModel import AcProgramEditorGQLModel
-#from .externals import GroupGQLModel,UserGQLModel
-
+#from .AcSubjectGQLModel import AcSubjectGQLModel
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
     return info.context["user"]
 
-UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".external")]
+UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".externals")]
 AcSubjectGQLModel = Annotated["AcSubjectGQLModel",strawberryA.lazy(".AcSubjectGQLModel")]
 AcProgramTypeGQLModel = Annotated["AcProgramTypeGQLModel",strawberryA.lazy(".AcProgramTypeGQLModel")]
-GroupGQLModel= Annotated["GroupGQLModel",strawberryA.lazy(".external")]
+GroupGQLModel= Annotated["GroupGQLModel",strawberryA.lazy(".externals")]
 
 @strawberryA.federation.type(
     keys=["id"], description="""Entity representing acredited study programs"""
@@ -49,6 +46,7 @@ class AcProgramGQLModel:
 
     @strawberryA.field(description="""Bachelor, ...""")
     async def type(self, info: strawberryA.types.Info) -> "AcProgramTypeGQLModel":
+        from .AcProgramTypeGQLModel import AcProgramTypeGQLModel
         result = await AcProgramTypeGQLModel.resolve_reference(info, self.type_id)
         return result
 
@@ -122,7 +120,7 @@ class ProgramInsertGQLModel:
     id: Optional[strawberryA.ID] = None
     pass
 
-@strawberryA.input
+@strawberryA.input(description="Update type of the program")
 class ProgramUpdateGQLModel:
     id: strawberryA.ID
     lastchange: datetime.datetime
