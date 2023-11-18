@@ -26,7 +26,6 @@ class GroupGQLModel:
     @classmethod
     async def resolve_reference(cls, id: strawberryA.ID):
         return GroupGQLModel(id=id)  # jestlize rozsirujete, musi byt tento vyraz
-
     async def program(
         self, info: strawberryA.types.Info
     ) -> Union["AcProgramGQLModel", None]:
@@ -38,7 +37,6 @@ class GroupGQLModel:
 @strawberryA.federation.type(extend=True, keys=["id"])
 class UserGQLModel:
     id: strawberryA.ID = strawberryA.federation.field(external=True)
-
     @classmethod
     async def resolve_reference(cls, id: strawberryA.ID):
         return UserGQLModel(id=id)  # jestlize rozsirujete, musi byt tento vyraz

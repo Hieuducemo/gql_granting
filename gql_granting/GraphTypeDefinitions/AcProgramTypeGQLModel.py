@@ -1,8 +1,8 @@
 
 import datetime
 import strawberry as strawberryA
-from typing import Union, Optional
-from .AcProgramGQLModel import ProgramUpdateGQLModel
+from typing import Union, Optional,Annotated
+#from .AcProgramGQLModel import ProgramUpdateGQLModel
 from .AcProgramFormTypeGQLModel import AcProgramFormTypeGQLModel
 from .AcProgramTitleTypeGQLModel import AcProgramTitleTypeGQLModel
 from .AcProgramLevelTypeGQLModel import AcProgramLevelTypeGQLModel
@@ -13,7 +13,7 @@ def getLoaders(info):
 def getUser(info):
     return info.context["user"]
 
-#ProgramUpdateGQLModel= Annotated["ProgramUpdateGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
+ProgramUpdateGQLModel= Annotated["ProgramUpdateGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
 
 @strawberryA.federation.type(
     keys=["id"],
