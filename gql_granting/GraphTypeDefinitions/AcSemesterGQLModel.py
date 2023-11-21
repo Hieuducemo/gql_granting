@@ -46,7 +46,7 @@ class AcSemesterGQLModel:
 
     # FK###############################################################################################
     @strawberryA.field(description="""Subject related to the semester (semester owner)""")
-    async def subject(self, info: strawberryA.types.Info) -> "AcSubjectGQLModel":
+    async def subject(self, info: strawberryA.types.Info) -> Optional["AcSubjectGQLModel"]:
         from .AcSubjectGQLModel import AcSubjectGQLModel
         result = await AcSubjectGQLModel.resolve_reference(info, self.subject_id)
         return result

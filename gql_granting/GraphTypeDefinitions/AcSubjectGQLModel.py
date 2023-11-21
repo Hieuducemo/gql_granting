@@ -54,7 +54,7 @@ class AcSubjectGQLModel:
         return self.lastchange
 
     @strawberryA.field(description="""Program owing this subjects""")
-    async def program(self, info: strawberryA.types.Info) -> "AcProgramGQLModel":
+    async def program(self, info: strawberryA.types.Info) -> Optional["AcProgramGQLModel"]:
         from .AcProgramGQLModel import AcProgramGQLModel
         result = await AcProgramGQLModel.resolve_reference(info, self.program_id)
         return result

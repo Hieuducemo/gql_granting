@@ -1,9 +1,9 @@
-import strawberry
+
 import datetime
-import asyncio
 import strawberry as strawberryA
 
 from typing import Optional, List, Union, Annotated
+from .AcTopicGQLModel import TopicResultGQLModel
 from .AcLessonTypeGQLModel import AcLessonTypeGQLModel
 #from .AcTopicGQLModel import AcTopicGQLModel
 def getLoaders(info):
@@ -46,7 +46,7 @@ class AcLessonGQLModel:
         return self.count
 
     @strawberryA.field(description="""The topic which owns this lesson""")
-    async def topic(self, info: strawberryA.types.Info) -> "AcTopicGQLModel":
+    async def topic(self, info: strawberryA.types.Info) -> Optional["AcTopicGQLModel"]:
         result = await AcTopicGQLModel.resolve_reference(info, self.topic_id)
         return result
 
@@ -76,15 +76,6 @@ async def aclesson_type_page(
 # Special fields for mutation
 #
 #################################################
-@strawberryA.type
-class TopicResultGQLModel:
-    id: strawberryA.ID = None
-    msg: str = None
-
-    @strawberryA.field(description="""Result of topic operation""")
-    async def topic(self, info: strawberryA.types.Info) -> Union[AcTopicGQLModel, None]:
-        result = await AcTopicGQLModel.resolve_reference(info, self.id)
-        return result
     
 @strawberryA.input
 class LessonInsertGQLModel:

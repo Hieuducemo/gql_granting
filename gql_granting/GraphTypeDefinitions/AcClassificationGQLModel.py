@@ -13,6 +13,7 @@ def getLoaders(info):
 def getUser(info):
     return info.context["user"]
 
+UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".externals")]
 AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemesterGQLModel")]
 
 @strawberryA.federation.type(
@@ -45,11 +46,11 @@ class AcClassificationGQLModel:
         return self.order
 
     @strawberryA.field(description="""User""")
-    async def user(self, info: strawberryA.types.Info) -> "UserGQLModel":
+    async def user(self, info: strawberryA.types.Info) -> Optional["UserGQLModel"]:
         return await UserGQLModel.resolve_reference(id=self.user_id)
 
     @strawberryA.field(description="""Semester""")
-    async def semester(self, info: strawberryA.types.Info) -> "AcSemesterGQLModel":
+    async def semester(self, info: strawberryA.types.Info) -> Optional["AcSemesterGQLModel"]:
         result = await AcSemesterGQLModel.resolve_reference(info, id=self.semester_id)
         return result
 
