@@ -1,7 +1,7 @@
 
 from sqlalchemy import Column, String, BigInteger, Integer, DateTime, ForeignKey, Sequence, Table, Boolean, Float, DECIMAL
-from uoishelpers.uuid import UUIDColumn
-from .Base import BaseModel, UUIDFKey
+
+from .Base import BaseModel, UUIDFKey, UUIDColumn
 
 
 class ClassificationLevelModel(BaseModel):
