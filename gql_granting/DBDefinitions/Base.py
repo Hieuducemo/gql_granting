@@ -12,6 +12,7 @@ from sqlalchemy import (
     Boolean,
 )
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Uuid
 
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -20,21 +21,20 @@ import uuid
 BaseModel = declarative_base()
 
 def newUuidAsString():
-    return f"{uuid.uuid1()}"
-
+    return uuid.uuid1()
 
 def UUIDColumn(name=None):
     if name is None:
-        return Column(String, primary_key=True, unique=True, default=newUuidAsString)
+        return Column(Uuid, primary_key=True, unique=True, default=newUuidAsString)
     else:
         return Column(
-            name, String, primary_key=True, unique=True, default=newUuidAsString
+            name, Uuid, primary_key=True, unique=True, default=newUuidAsString
         )
 
 def UUIDFKey(*, ForeignKey=None, nullable=False):
     if ForeignKey is None:
         return Column(
-            String, index=True, nullable=nullable
+            Uuid, index=True, nullable=nullable
         )
     else:
         return Column(
