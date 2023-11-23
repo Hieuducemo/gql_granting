@@ -2,7 +2,8 @@
 import datetime
 import asyncio
 import strawberry as strawberryA
-
+import typing
+from uuid import UUID
 from typing import Optional, List, Union, Annotated
 from .AcProgramEditorGQLModel import AcProgramEditorGQLModel
 #from .AcSubjectGQLModel import AcSubjectGQLModel
@@ -22,6 +23,10 @@ GroupGQLModel= Annotated["GroupGQLModel",strawberryA.lazy(".externals")]
 class AcProgramGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+        # try:
+        #     uuid_id=UUID(id)
+        # except ValueError:
+        #     return None
         loader = getLoaders(info).programs
         result = await loader.load(id)
         if result is not None:
@@ -93,16 +98,17 @@ JSON = strawberryA.scalar(
 
 @strawberryA.field(description="""Finds an program by their id""")
 async def program_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
-    ) -> Union["AcProgramGQLModel", None]:
-        result = await AcProgramGQLModel.resolve_reference(info, id)
+        self, info: strawberryA.types.Info, id: UUID#strawberryA.ID
+    ) -> typing.Optional[AcProgramGQLModel]:
+        print(type(id))
+        result = await AcProgramGQLModel.resolve_reference(info=info, id=id)
         return result
 
 @strawberryA.field(description="""Finds all programs""")
-async def program_page(
+async def program_page( 
         self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10
     ) -> List["AcProgramGQLModel"]:
-        loader = getLoaders(info).programs
+        loader = getLoaders(info).programs 
         result = await loader.page(skip=skip, limit=limit)
         return result
     
