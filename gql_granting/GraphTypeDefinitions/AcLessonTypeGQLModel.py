@@ -43,10 +43,10 @@ class AcLessonTypeGQLModel:
 # Special fields for query
 #
 #################################################
-
+from uuid import UUID 
 @strawberryA.field(description="""Finds a lesson type by its id""")
 async def aclesson_type_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
+        self, info: strawberryA.types.Info, id: UUID
     ) -> Union["AcLessonTypeGQLModel", None]:
         result = await AcLessonTypeGQLModel.resolve_reference(info, id)
         return result

@@ -75,10 +75,10 @@ class AcProgramLanguageTypeGQLModel:
 # Special fields for query
 #
 #################################################
-
+from uuid import UUID
 @strawberryA.field(description="""Finds a program language its id""")
 async def program_language_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
+        self, info: strawberryA.types.Info, id:UUID
     ) -> Union["AcProgramLanguageTypeGQLModel", None]:
         result = await AcProgramLanguageTypeGQLModel.resolve_reference(info, id)
         return result

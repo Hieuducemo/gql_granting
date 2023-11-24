@@ -71,10 +71,10 @@ class AcProgramTypeGQLModel:
 # Special fields for query
 #
 #################################################
-
+from uuid import UUID
 @strawberryA.field(description="""Finds a program type its id""")
 async def program_type_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
+        self, info: strawberryA.types.Info, id: UUID
     ) -> Union["AcProgramTypeGQLModel", None]:
         result = await AcProgramTypeGQLModel.resolve_reference(info, id)
         return result

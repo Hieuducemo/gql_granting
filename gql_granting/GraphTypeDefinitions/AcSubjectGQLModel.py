@@ -1,7 +1,7 @@
 
 import datetime
 import strawberry as strawberryA
-
+from uuid import UUID 
 from typing import Optional, List, Annotated
 from .externals import GroupGQLModel 
 #from .AcProgramGQLModel import AcProgramGQLModel
@@ -79,11 +79,11 @@ class AcSubjectGQLModel:
 # Special fields for query
 #
 #################################################
-
+import typing
 @strawberryA.field(description="""Finds a subject by its id""")
 async def acsubject_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
-    ) -> Union["AcSubjectGQLModel", None]:
+        self, info: strawberryA.types.Info, id: UUID
+    ) -> typing.Optional[AcSubjectGQLModel]:
         result = await AcSubjectGQLModel.resolve_reference(info, id)
         return result
 

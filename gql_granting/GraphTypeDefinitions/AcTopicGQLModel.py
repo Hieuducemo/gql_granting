@@ -64,10 +64,10 @@ class AcTopicGQLModel:
 # Special fields for query
 #
 #################################################
-
+from uuid import UUID 
 @strawberryA.field(description="""Finds a topic by its id""")
 async def actopic_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
+        self, info: strawberryA.types.Info, id: UUID
     ) -> Union["AcTopicGQLModel", None]:
         result = await AcTopicGQLModel.resolve_reference(info, id)
         return result

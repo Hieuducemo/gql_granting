@@ -43,10 +43,10 @@ class AcProgramLevelTypeGQLModel:
 # Special fields for query
 #
 #################################################
-
+from uuid import UUID
 @strawberryA.field(description="""Finds a program level its id""")
 async def program_level_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
+        self, info: strawberryA.types.Info, id: UUID
     ) -> Union["AcProgramLevelTypeGQLModel", None]:
         result = await AcProgramLevelTypeGQLModel.resolve_reference(info, id)
         return result

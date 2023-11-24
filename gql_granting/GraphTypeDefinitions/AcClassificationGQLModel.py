@@ -69,7 +69,7 @@ class AcClassificationGQLModel:
 # Special fields for query
 #
 #################################################
-
+from uuid import UUID 
 @strawberryA.field(description="""Lists classifications""")
 async def acclassification_page(
         self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10
@@ -80,7 +80,7 @@ async def acclassification_page(
 
 @strawberryA.field(description="""Lists classifications for the user""")
 async def acclassification_page_by_user(
-        self, info: strawberryA.types.Info, user_id: strawberryA.ID, skip: int = 0, limit: int = 10
+        self, info: strawberryA.types.Info, user_id: UUID, skip: int = 0, limit: int = 10
     ) -> List["AcClassificationGQLModel"]:
         loader = getLoaders(info).classifications
         result = await loader.filter_by(user_id=user_id)
