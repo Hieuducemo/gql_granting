@@ -36,3 +36,10 @@ docker-compose up
 <br/><br/>
 
 pytest --cov-report term-missing --cov=gql_granting tests
+
+# Process
+23/11/2023 Seperate code into small files and link them 
+ 
+25/11/2023 Fixing UUID problems
+
+27/11/2023 Project day 
