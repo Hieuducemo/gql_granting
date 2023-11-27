@@ -1,5 +1,4 @@
-from .Base import BaseModel, ComposeConnectionString, startEngine
-
+from .Base import BaseModel, ComposeConnectionString, startEngine,UUIDColumn
 from .classificationLevelModel import ClassificationLevelModel
 from .classificationModel import ClassificationModel
 from .classificationTypeModel import ClassificationTypeModel

@@ -47,10 +47,12 @@ class AcClassificationGQLModel:
 
     @strawberryA.field(description="""User""")
     async def user(self, info: strawberryA.types.Info) -> Optional["UserGQLModel"]:
+        from .externals import UserGQLModel
         return await UserGQLModel.resolve_reference(id=self.user_id)
 
     @strawberryA.field(description="""Semester""")
     async def semester(self, info: strawberryA.types.Info) -> Optional["AcSemesterGQLModel"]:
+        from .AcSemesterGQLModel import AcSemesterGQLModel
         result = await AcSemesterGQLModel.resolve_reference(info, id=self.semester_id)
         return result
 

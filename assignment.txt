@@ -1,4 +1,4 @@
-GRANTING_A (1 student) Nevybráno
+GRANTING_A (1 student) 
 Entity AcProgramGQLModel, AcSubjectGQLModel, AcSemesterGQLModel, AcTopicGQLModel, AcLessonGQLModel
 Řešte garanty programu (AcProgramGQLModel) relací s entitou GroupGQLModel a RoleGQLModel, obdobně garanci předmětů (AcSubjectGQLModel)
 Modely v databázi pomocí SQLAlchemy, API endpoint typu GraphQL s pomocí knihovny Strawberry.
