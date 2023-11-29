@@ -65,12 +65,14 @@ class AcProgramGQLModel:
         result = await loader.filter_by(program_id=self.id)
         return result
 
-    @strawberryA.field(description="""subjects in the program""")
+    @strawberryA.field(description="""students in the program""")
     async def students(self, info: strawberryA.types.Info) -> List["UserGQLModel"]:
         loader = getLoaders(info).programstudents
         rows = await loader.filter_by(program_id=self.id)
+        from .externals import UserGQLModel
         userawaitables = (UserGQLModel.resolve_reference(row.student_id) for row in rows)
         result = await asyncio.gather(*userawaitables)
+        
         return result
 
     @strawberryA.field(description="""group defining grants of this program""")
@@ -154,7 +156,7 @@ async def program_insert(self, info: strawberryA.types.Info, program: ProgramIns
         result.id = row.id
         return result
 
-@strawberryA.mutation(description="""Update thestudy program""")
+@strawberryA.mutation(description="""Update the study program""")
 async def program_update(self, info: strawberryA.types.Info, program: ProgramUpdateGQLModel) -> ProgramResultGQLModel:
         loader = getLoaders(info).programs
         row = await loader.update(program)

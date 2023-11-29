@@ -5,6 +5,8 @@ from .Base import BaseModel, UUIDFKey, UUIDColumn
 class ProgramStudents(BaseModel):
     __tablename__ = "acprograms_students"
     id = UUIDColumn()
+    
+    program_id = Column(ForeignKey("acprograms.id"))
     student_id = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
     state_id = Column(ForeignKey("acprograms_studentstates.id"), index=True)
     semester = Column(Integer)

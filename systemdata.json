@@ -1402,6 +1402,11 @@
             "name_en": ""
         }
     ],
+    "acprograms_students" : [
+        {
+            "id":"fd4f1fba-9315-11ed-9b95-0242ac110002"
+        }
+    ],
 
     "acprograms_studentstates": [
         {"id": "6c96b893-ca09-4b6f-9fbb-5359c589927b", "name": "Přijat", "name_en": ""},

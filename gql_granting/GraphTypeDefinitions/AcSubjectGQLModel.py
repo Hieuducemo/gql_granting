@@ -5,7 +5,7 @@ from uuid import UUID
 from typing import Optional, List, Annotated
 from .externals import GroupGQLModel 
 #from .AcProgramGQLModel import AcProgramGQLModel
-from .AcSemesterGQLModel import AcSemesterGQLModel
+#from .AcSemesterGQLModel import AcSemesterGQLModel
 
 
 from typing import Optional, List, Union, Annotated
@@ -87,13 +87,13 @@ async def acsubject_by_id(
         result = await AcSubjectGQLModel.resolve_reference(info, id)
         return result
 
-@strawberryA.field(description="""Finds a subject by its id""")
+@strawberryA.field(description="""Find all subjects""")
 async def acsubject_page(
         self, info: strawberryA.types.Info, skip: Optional[int] = 0, limit: Optional[int] = 10
-    ) -> Union["AcSubjectGQLModel", None]:
+    ) -> List["AcSubjectGQLModel"]:
         loader = getLoaders(info).subjects
         result = await loader.page()
-        result = await AcSubjectGQLModel.resolve_reference(info, id)
+        #result = await AcSubjectGQLModel.resolve_reference(info, id)
         return result
     
 #################################################
