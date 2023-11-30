@@ -50,6 +50,7 @@ class AcTopicGQLModel:
 
     @strawberryA.field(description="""Semester of subject which owns the topic""")
     async def semester(self, info: strawberryA.types.Info) -> Optional["AcSemesterGQLModel"]:
+        from .AcSemesterGQLModel import AcSemesterGQLModel  
         result = await AcSemesterGQLModel.resolve_reference(info, self.semester_id)
         return result
 
