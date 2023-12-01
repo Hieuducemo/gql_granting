@@ -2,7 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-
+from uuid import UUID 
 from typing import Optional, List, Union, Annotated
 
 def getLoaders(info):
@@ -15,7 +15,7 @@ def getUser(info):
 @strawberryA.federation.type(keys=["id"], description="P, C, LC, S, ...")
 class AcLessonTypeGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).lessontypes
         result = await loader.load(id)
         if result is not None:
@@ -23,7 +23,7 @@ class AcLessonTypeGQLModel:
         return result
 
     @strawberryA.field(description="primary key")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="name")
@@ -43,7 +43,7 @@ class AcLessonTypeGQLModel:
 # Special fields for query
 #
 #################################################
-from uuid import UUID 
+
 @strawberryA.field(description="""Finds a lesson type by its id""")
 async def aclesson_type_by_id(
         self, info: strawberryA.types.Info, id: UUID

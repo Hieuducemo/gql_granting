@@ -1,6 +1,7 @@
 
 import datetime
 import strawberry as strawberryA
+from uuid import UUID 
 
 from typing import Optional, List, Union, Annotated
 from .AcTopicGQLModel import TopicResultGQLModel
@@ -19,7 +20,7 @@ AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel"
 )
 class AcLessonGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).lessons
         result = await loader.load(id)
         if result is not None:
@@ -27,7 +28,7 @@ class AcLessonGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="""datetime lastchange""")
@@ -55,7 +56,6 @@ class AcLessonGQLModel:
 # Special fields for query
 #
 #################################################
-from uuid import UUID 
 @strawberryA.field(description="""Finds a lesson by its id""")
 async def aclesson_by_id(
         self, info: strawberryA.types.Info, id: UUID
@@ -79,21 +79,21 @@ async def aclesson_type_page(
     
 @strawberryA.input
 class LessonInsertGQLModel:
-    topic_id: strawberryA.ID
-    type_id: strawberryA.ID = strawberryA.field(description="type of the lesson")
+    topic_id:UUID
+    type_id: UUID = strawberryA.field(description="type of the lesson")
     count: Optional[int] = strawberryA.field(description="count of the lessons", default=2)
-    id: Optional[strawberryA.ID] = None
+    id: Optional[UUID] = None
 
 @strawberryA.input
 class LessonUpdateGQLModel:
-    id: strawberryA.ID
+    id:UUID
     lastchange: datetime.datetime
-    type_id: Optional[strawberryA.ID] = None
+    type_id: Optional[UUID] = None
     count: Optional[int] = None
 
 @strawberryA.type
 class LessonResultGQLModel:
-    id: strawberryA.ID = None
+    id: UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of topic operation""")

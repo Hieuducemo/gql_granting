@@ -13,7 +13,7 @@ def getUser(info):
 
 class AcProgramStudentGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).programstudents
         result = await loader.load(id)
         if result is not None:

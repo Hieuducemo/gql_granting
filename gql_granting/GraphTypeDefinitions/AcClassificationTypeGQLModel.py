@@ -2,7 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-
+from uuid import UUID 
 from typing import Optional, List, Union, Annotated
 
 def getLoaders(info):
@@ -17,7 +17,7 @@ def getUser(info):
 )
 class AcClassificationTypeGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).classificationtypes
         result = await loader.load(id)
         if result is not None:
@@ -48,7 +48,7 @@ class AcClassificationTypeGQLModel:
 
 @strawberryA.field(description="""Lists classifications types""")
 async def acclassification_type_page(
-        self, info: strawberryA.types.Info, user_id: strawberryA.ID, skip: int = 0, limit: int = 10
+        self, info: strawberryA.types.Info, user_id: UUID, skip: int = 0, limit: int = 10
     ) -> List["AcClassificationTypeGQLModel"]:
         loader = getLoaders(info).classificationtypes
         result = await loader.page(skip, limit)

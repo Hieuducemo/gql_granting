@@ -26,7 +26,7 @@ AcSemesterGQLModel =Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemester
 )
 class AcSubjectGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).subjects
         result = await loader.load(id)
         if result is not None:
@@ -34,7 +34,7 @@ class AcSubjectGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="""time stamp""")
@@ -106,13 +106,13 @@ async def acsubject_page(
 class SubjectInsertGQLModel:
     name: str
     name_en: str
-    program_id: strawberryA.ID
-    id: Optional[strawberryA.ID] = None
+    program_id: UUID
+    id: Optional[UUID] = None
     valid: Optional[bool] = True
 
 @strawberryA.input
 class SubjectUpdateGQLModel:
-    id: strawberryA.ID
+    id: UUID
     lastchange: datetime.datetime
     name: Optional[str] = None
     name_en: Optional[str] = None
@@ -120,7 +120,7 @@ class SubjectUpdateGQLModel:
 
 @strawberryA.type
 class SubjectResultGQLModel:
-    id: strawberryA.ID = None
+    id: UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of subject operation""")

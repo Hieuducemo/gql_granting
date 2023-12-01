@@ -2,6 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
+from uuid import UUID 
 
 #from .AcSemesterGQLModel import AcSemesterGQLModel
 #from .AcLessonGQLModel import AcLessonGQLModel
@@ -21,7 +22,7 @@ AcLessonGQLModel= Annotated["AcLessonGQLModel",strawberryA.lazy(".AcLessonGQLMod
 )
 class AcTopicGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).topics
         result = await loader.load(id)
         if result is not None:
@@ -29,7 +30,7 @@ class AcTopicGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="""name ("Introduction")""")
@@ -65,7 +66,6 @@ class AcTopicGQLModel:
 # Special fields for query
 #
 #################################################
-from uuid import UUID 
 @strawberryA.field(description="""Finds a topic by its id""")
 async def actopic_by_id(
         self, info: strawberryA.types.Info, id: UUID
@@ -82,15 +82,15 @@ async def actopic_by_id(
 
 @strawberryA.input
 class TopicInsertGQLModel:
-    semester_id: strawberryA.ID
+    semester_id: UUID
     order: Optional[int] = 0
     name: Optional[str] = "New Topic"
     name_en: Optional[str] = "New Topic"
-    id: Optional[strawberryA.ID] = None
+    id: Optional[UUID] = None
 
 @strawberryA.input
 class TopicUpdateGQLModel:
-    id: strawberryA.ID
+    id: UUID
     lastchange: datetime.datetime
     order: Optional[int] = None
     name: Optional[str] = None
@@ -98,7 +98,7 @@ class TopicUpdateGQLModel:
 
 @strawberryA.type
 class TopicResultGQLModel:
-    id: strawberryA.ID = None
+    id: UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of topic operation""")

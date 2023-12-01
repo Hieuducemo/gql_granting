@@ -2,6 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
+from uuid import UUID
 
 from typing import Optional, List, Union, Annotated
 
@@ -15,7 +16,7 @@ def getUser(info):
 @strawberryA.federation.type(keys=["id"], description="bachelor, ...")
 class AcProgramLevelTypeGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).programleveltypes
         result = await loader.load(id)
         if result is not None:
@@ -23,7 +24,7 @@ class AcProgramLevelTypeGQLModel:
         return result
 
     @strawberryA.field(description="primary key")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="Name of the program level")
@@ -43,7 +44,6 @@ class AcProgramLevelTypeGQLModel:
 # Special fields for query
 #
 #################################################
-from uuid import UUID
 @strawberryA.field(description="""Finds a program level its id""")
 async def program_level_by_id(
         self, info: strawberryA.types.Info, id: UUID

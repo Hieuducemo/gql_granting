@@ -2,7 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-
+from uuid import UUID 
 from typing import Optional, List, Union, Annotated
 #from .AcSemesterGQLModel import AcSemesterGQLModel
 from .AcClassificationLevelGQLModel import AcClassificationLevelGQLModel
@@ -22,7 +22,7 @@ AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemester
 )
 class AcClassificationGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).classifications
         result = await loader.load(id)
         if result is not None:
@@ -71,7 +71,7 @@ class AcClassificationGQLModel:
 # Special fields for query
 #
 #################################################
-from uuid import UUID 
+
 @strawberryA.field(description="""Lists classifications""")
 async def acclassification_page(
         self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10

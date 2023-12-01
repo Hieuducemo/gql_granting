@@ -2,7 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-
+from uuid import UUID
 from typing import Optional, List, Union, Annotated
 
 def getLoaders(info):
@@ -15,7 +15,7 @@ def getUser(info):
 @strawberryA.federation.type(keys=["id"], description="Study program editor")
 class AcProgramEditorGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).programs
         result = await loader.load(id)
         if result is not None:
@@ -23,7 +23,7 @@ class AcProgramEditorGQLModel:
         return result
 
     @strawberryA.field(description="primary key")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     # change name, add subject, delete subject

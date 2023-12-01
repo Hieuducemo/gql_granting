@@ -22,7 +22,7 @@ GroupGQLModel= Annotated["GroupGQLModel",strawberryA.lazy(".externals")]
 )
 class AcProgramGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         # try:
         #     uuid_id=UUID(id)
         # except ValueError:

@@ -1,6 +1,6 @@
 
 import strawberry as strawberryA
-
+from uuid import UUID
 from typing import  Annotated
 
 
@@ -17,7 +17,7 @@ def getUser(info):
 )
 class AcClassificationLevelGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).classificationlevels
         result = await loader.load(id)
         if result is not None:

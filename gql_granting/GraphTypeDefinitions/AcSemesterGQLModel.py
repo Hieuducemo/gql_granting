@@ -6,7 +6,7 @@ from typing import Optional, List, Union, Annotated
 #from .AcTopicGQLModel import AcTopicGQLModel
 from .AcClassificationTypeGQLModel import AcClassificationTypeGQLModel
 #from .AcClassificationGQLModel import AcClassificationGQLModel
-
+from uuid import UUID
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
@@ -20,7 +20,7 @@ AcSubjectGQLModel=Annotated["AcSubjectGQLModel",strawberryA.lazy(".AcSubjectGQLM
 )
 class AcSemesterGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: strawberryA.ID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
         loader = getLoaders(info).semesters
         result = await loader.load(id)
         if result is not None:
@@ -28,7 +28,7 @@ class AcSemesterGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="""semester number""")
@@ -79,7 +79,7 @@ class AcSemesterGQLModel:
 
 @strawberryA.field(description="""Finds a subject semester by its id""")
 async def acsemester_by_id(
-        self, info: strawberryA.types.Info, id: strawberryA.ID
+        self, info: strawberryA.types.Info, id: UUID
     ) -> Union["AcSemesterGQLModel", None]:
         result = await AcSemesterGQLModel.resolve_reference(info, id)
         return result
@@ -93,38 +93,6 @@ async def acsemester_page(
         return result
 
 
-#################################################
-#
-# Special fields for mutation
-#
-#################################################
-@strawberryA.input
-class SemesterInsertGQLModel:
-    subject_id: strawberryA.ID
-    classificationtype_id: strawberryA.ID
-    order: Optional[int] = 0
-    credits: Optional[int] = 0
-    id: Optional[strawberryA.ID] = None
-    valid: Optional[bool] = True
-
-@strawberryA.input
-class SemesterUpdateGQLModel:
-    id: strawberryA.ID
-    lastchange: datetime.datetime
-    valid: Optional[bool] = None
-    order: Optional[int] = None
-    credits: Optional[int] = None
-    classificationtype_id: Optional[strawberryA.ID] = None
-
-@strawberryA.type
-class SemesterResultGQLModel:
-    id: strawberryA.ID = None
-    msg: str = None
-
-    @strawberryA.field(description="""Result of semester operation""")
-    async def semester(self, info: strawberryA.types.Info) -> Union[AcSemesterGQLModel, None]:
-        result = await AcSemesterGQLModel.resolve_reference(info, self.id)
-        return result
     
 #################################################
 #
@@ -148,25 +116,25 @@ async def acsemester_page(
 
 @strawberryA.input
 class SemesterInsertGQLModel:
-    subject_id: strawberryA.ID
-    classificationtype_id: strawberryA.ID
+    subject_id: UUID
+    classificationtype_id: UUID
     order: Optional[int] = 0
     credits: Optional[int] = 0
-    id: Optional[strawberryA.ID] = None
+    id: Optional[UUID] = None
     valid: Optional[bool] = True
 
 @strawberryA.input
 class SemesterUpdateGQLModel:
-    id: strawberryA.ID
+    id: UUID
     lastchange: datetime.datetime
     valid: Optional[bool] = None
     order: Optional[int] = None
     credits: Optional[int] = None
-    classificationtype_id: Optional[strawberryA.ID] = None
+    classificationtype_id: Optional[UUID] = None
 
 @strawberryA.type
 class SemesterResultGQLModel:
-    id: strawberryA.ID = None
+    id: UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of semester operation""")
