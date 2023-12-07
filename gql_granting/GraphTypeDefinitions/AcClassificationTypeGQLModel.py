@@ -25,7 +25,7 @@ class AcClassificationTypeGQLModel:
         return result
 
     @strawberryA.field(description="primary key")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="name")

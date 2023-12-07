@@ -30,7 +30,7 @@ class AcClassificationGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="""datetime lastchange""")
@@ -96,22 +96,22 @@ async def acclassification_page_by_user(
 
 @strawberryA.input
 class ClassificationInsertGQLModel:
-    semester_id: strawberryA.ID
-    user_id: strawberryA.ID
-    classificationlevel_id: strawberryA.ID
+    semester_id: UUID
+    user_id: UUID
+    classificationlevel_id: UUID
     # classificationtype_id: strawberryA.ID
     order: int
-    id: Optional[strawberryA.ID] = None
+    id: Optional[UUID] = None
 
 @strawberryA.input
 class ClassificationUpdateGQLModel:
-    id: strawberryA.ID
+    id: UUID
     lastchange: datetime.datetime
-    classificationlevel_id: strawberryA.ID
+    classificationlevel_id: UUID
 
 @strawberryA.type
 class ClassificationResultGQLModel:
-    id: strawberryA.ID = None
+    id: UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of semester operation""")

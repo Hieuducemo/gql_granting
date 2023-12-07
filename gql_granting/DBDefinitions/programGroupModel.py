@@ -4,6 +4,7 @@ from .Base import BaseModel, UUIDFKey, UUIDColumn
 
 class ProgramGroupModel(BaseModel):
     __tablename__ = "acprogramgroups"
+    program_id = Column(ForeignKey("acprograms.id"))
     id = UUIDColumn()
     ac_id = (
         UUIDColumn()

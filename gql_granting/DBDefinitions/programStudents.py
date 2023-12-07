@@ -10,7 +10,7 @@ class ProgramStudents(BaseModel):
     student_id = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
     state_id = Column(ForeignKey("acprograms_studentstates.id"), index=True)
     semester = Column(Integer)
-
+    name = Column(String)
     valid = Column(Boolean, default=lambda item: True)
 
     created = Column(DateTime, server_default=sqlalchemy.sql.func.now())

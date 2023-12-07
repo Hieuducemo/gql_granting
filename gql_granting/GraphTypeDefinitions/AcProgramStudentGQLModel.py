@@ -24,6 +24,4 @@ class AcProgramStudentGQLModel:
     async def user(self, info: strawberryA.types.Info) -> Optional["UserGQLModel"]:
         return await UserGQLModel.resolve_reference(id=self.student_id)
     
-    @strawberryA.field(description="""primary key""")
-    async def messages(self, info: strawberryA.types.Info) -> Optional["UserGQLModel"]:
-        return await UserGQLModel.resolve_reference(id=self.student_id)
+  

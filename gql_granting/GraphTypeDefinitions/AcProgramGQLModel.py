@@ -34,7 +34,7 @@ class AcProgramGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> strawberryA.ID:
+    def id(self) -> UUID:
         return self.id
 
     @strawberryA.field(description="""name""")
@@ -72,7 +72,6 @@ class AcProgramGQLModel:
         from .externals import UserGQLModel
         userawaitables = (UserGQLModel.resolve_reference(row.student_id) for row in rows)
         result = await asyncio.gather(*userawaitables)
-        
         return result
 
     @strawberryA.field(description="""group defining grants of this program""")
