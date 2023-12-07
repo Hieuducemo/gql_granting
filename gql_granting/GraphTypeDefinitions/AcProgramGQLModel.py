@@ -123,21 +123,21 @@ from typing import Optional
 @strawberryA.input(description="Define input for the program" )
 class ProgramInsertGQLModel:
     name: str
-    type_id: strawberryA.ID
-    id: Optional[strawberryA.ID] = None
+    type_id: UUID
+    id: Optional[UUID] = None
     pass
 
 @strawberryA.input(description="Update type of the program")
 class ProgramUpdateGQLModel:
-    id: strawberryA.ID
+    id: UUID
     lastchange: datetime.datetime
     name: Optional[str] = None
     name_en: Optional[str] = None
-    type_id: Optional[strawberryA.ID] = None
+    type_id: Optional[UUID] = None
 
 @strawberryA.type
 class ProgramResultGQLModel:
-    id: strawberryA.ID = None
+    id: UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of user operation""")
