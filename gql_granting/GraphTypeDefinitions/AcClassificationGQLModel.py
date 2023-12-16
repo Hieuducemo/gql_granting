@@ -99,7 +99,7 @@ class ClassificationInsertGQLModel:
     semester_id: UUID
     user_id: UUID
     classificationlevel_id: UUID
-    # classificationtype_id: strawberryA.ID
+    # classificationtype_id: UUID
     order: int
     id: Optional[UUID] = None
 

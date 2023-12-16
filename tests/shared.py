@@ -1,7 +1,7 @@
 import sqlalchemy
 import sys
 import asyncio
-
+import logging
 # setting path
 sys.path.append("../gql_granting")
 
@@ -56,3 +56,28 @@ async def createContext(asyncSessionMaker):
         "asyncSessionMaker": asyncSessionMaker,
         "all": await createLoaders(asyncSessionMaker),
     }
+
+from gql_granting.GraphTypeDefinitions import schema
+
+def CreateSchemaFunction():
+    async def result(query, variables={}):
+
+        async_session_maker = await prepare_in_memory_sqllite()
+        await prepare_demodata(async_session_maker)
+        context_value = createContext(async_session_maker)
+        logging.debug(f"query for {query} with {variables}")
+        print(f"query for {query} with {variables}")
+        resp = await schema.execute(
+            query=query, 
+            variable_values=variables, 
+            context_value=context_value
+        )
+
+        assert resp.errors is None
+        respdata = resp.data
+        logging.debug(f"response: {respdata}")
+
+        result = {"data": respdata, "errors": resp.errors}
+        return result
+
+    return result

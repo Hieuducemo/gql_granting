@@ -95,7 +95,10 @@ JSON = strawberryA.scalar(
     serialize=lambda v: v,
     parse_value=lambda v: v,
 )
-
+class ProgramWhereFilter:
+    name: str 
+    name_en:str 
+    
 
 @strawberryA.field(description="""Finds an program by their id""")
 async def program_by_id(
