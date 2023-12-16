@@ -15,16 +15,16 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-test_reference_forms = createResolveReferenceTest(tableName='acprograms', gqltype='ProgramGQLModel', attributeNames=["id", "name", "lastchange", "subjects {id}","student {id}"])
-test_query_form_by_id = createByIdTest(tableName="acprograms", queryEndpoint="programById")
-test_query_form_page = createPageTest(tableName="acprograms", queryEndpoint="programPage")
+test_reference_programs = createResolveReferenceTest(tableName='acprograms', gqltype='ProgramGQLModel', attributeNames=["id", "name", "lastchange", "subjects {id}","student {id}"])
+test_query_program_by_id = createByIdTest(tableName="acprograms", queryEndpoint="programById")
+test_query_program_page = createPageTest(tableName="acprograms", queryEndpoint="programPage")
 
 test_program_insert = createFrontendQuery(query="""
     mutation($id: UUID!, $name: String!) { 
-        result: formInsert(form: {id: $id, name: $name}) { 
+        result: programInsert(program: {id: $id, name: $name}) { 
             id
             msg
-            form {
+            program {
                 id
                 name
                 type { id }
@@ -39,10 +39,10 @@ test_program_insert = createFrontendQuery(query="""
 test_program_update = createUpdateQuery(
     query="""
         mutation($id: UUID!, $name: String!, $lastchange: DateTime!) {
-            formUpdate(form: {id: $id, name: $name, lastchange: $lastchange}) {
+            programUpdate(program: {id: $id, name: $name, lastchange: $lastchange}) {
                 id
                 msg
-                form {
+                program {
                     id
                     name
                 }
