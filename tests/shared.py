@@ -51,10 +51,10 @@ async def prepare_demodata(async_session_maker):
 from gql_granting.Dataloaders import createLoaders_3, createLoaders
 
 
-async def createContext(asyncSessionMaker):
+def createContext(asyncSessionMaker):
     return {
         "asyncSessionMaker": asyncSessionMaker,
-        "all": await createLoaders(asyncSessionMaker),
+        "all": createLoaders(asyncSessionMaker),
     }
 
 from gql_granting.GraphTypeDefinitions import schema

@@ -30,7 +30,7 @@ class AcProgramGQLModel:
         loader = getLoaders(info).programs
         result = await loader.load(id)
         if result is not None:
-            result._type_definition = cls._type_definition  # little hack :)
+            result.__strawberry_definition__ = cls.__strawberry_definition__  # little hack :)
         return result
 
     @strawberryA.field(description="""primary key""")

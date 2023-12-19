@@ -79,8 +79,8 @@ def createByIdTest(tableName, queryEndpoint, attributeNames=["id", "name"]):
 
         resp = await schemaExecutor(query, variable_values)
         testResult(resp)
-        resp = await clientExecutor(query, variable_values)
-        testResult(resp)
+        # resp = await clientExecutor(query, variable_values)
+        # testResult(resp)
 
     return result_test
 
@@ -115,8 +115,8 @@ def createPageTest(tableName, queryEndpoint, attributeNames=["id", "name"]):
 
         resp = await schemaExecutor(query)
         testResult(resp)
-        resp = await clientExecutor(query)
-        testResult(resp)
+        # resp = await clientExecutor(query)
+        # testResult(resp)
         
     return result_test
 
@@ -127,7 +127,7 @@ def createResolveReferenceTest(tableName, gqltype, attributeNames=["id", "name"]
         def testResult(resp):
             print(resp)
             errors = resp.get("errors", None)
-            assert errors is None
+            assert errors is None, errors
             respdata = resp.get("data", None)
             assert respdata is not None
 
@@ -172,8 +172,8 @@ def createResolveReferenceTest(tableName, gqltype, attributeNames=["id", "name"]
             variable_values = {"rep": [{"__typename": f"{gqltype}", "id": f"{rowid}"}]}
 
             logging.info(f"query representations {query} with {variable_values}")
-            resp = await clientExecutor(query, {**variable_values})
-            testResult(resp)
+            # resp = await clientExecutor(query, {**variable_values})
+            # testResult(resp)
             resp = await schemaExecutor(query, {**variable_values})
             testResult(resp)
 

@@ -1,7 +1,8 @@
 
 import datetime
+import uuid
 import strawberry as strawberryA
-from uuid import UUID 
+
 
 from typing import Optional, List, Union, Annotated
 from .AcTopicGQLModel import TopicResultGQLModel
@@ -20,15 +21,20 @@ AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel"
 )
 class AcLessonGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
+        print("AcLessonGQLModel.resolve_reference", id)
+        print("AcLessonGQLModel.resolve_reference", type(id))
+        if isinstance(id, str):
+             id = uuid.UUID(id)
+
         loader = getLoaders(info).lessons
         result = await loader.load(id)
         if result is not None:
-            result._type_definition = cls._type_definition  # little hack :)
+            result.__strawberry_definition__ = cls.__strawberry_definition__  # little hack :)
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""datetime lastchange""")
@@ -48,6 +54,7 @@ class AcLessonGQLModel:
 
     @strawberryA.field(description="""The topic which owns this lesson""")
     async def topic(self, info: strawberryA.types.Info) -> Optional["AcTopicGQLModel"]:
+        from .AcTopicGQLModel import AcTopicGQLModel
         result = await AcTopicGQLModel.resolve_reference(info, self.topic_id)
         return result
 
@@ -58,7 +65,7 @@ class AcLessonGQLModel:
 #################################################
 @strawberryA.field(description="""Finds a lesson by its id""")
 async def aclesson_by_id(
-        self, info: strawberryA.types.Info, id: UUID
+        self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> Union["AcLessonGQLModel", None]:
         result = await AcLessonGQLModel.resolve_reference(info, id)
         return result
@@ -79,25 +86,25 @@ async def aclesson_type_page(
     
 @strawberryA.input
 class LessonInsertGQLModel:
-    topic_id:UUID
-    type_id: UUID = strawberryA.field(description="type of the lesson")
+    topic_id:uuid.UUID
+    type_id: uuid.UUID = strawberryA.field(description="type of the lesson")
     count: Optional[int] = strawberryA.field(description="count of the lessons", default=2)
-    id: Optional[UUID] = None
+    id: Optional[uuid.UUID] = None
 
 @strawberryA.input
 class LessonUpdateGQLModel:
-    id:UUID
+    id:uuid.UUID
     lastchange: datetime.datetime
-    type_id: Optional[UUID] = None
+    type_id: Optional[uuid.UUID] = None
     count: Optional[int] = None
 
 @strawberryA.type
 class LessonResultGQLModel:
-    id: UUID = None
+    id: uuid.UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of topic operation""")
-    async def topic(self, info: strawberryA.types.Info) -> Union[AcLessonGQLModel, None]:
+    async def lesson(self, info: strawberryA.types.Info) -> Union[AcLessonGQLModel, None]:
         result = await AcLessonGQLModel.resolve_reference(info, self.id)
         return result
     

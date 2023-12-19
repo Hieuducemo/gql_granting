@@ -43,3 +43,14 @@ pytest --cov-report term-missing --cov=gql_granting tests
 25/11/2023 Fixing UUID problems
 
 27/11/2023 Project day 
+
+
+## how to run 
+```bash
+uvicorn main:app --env-file environment.txt --port 8001 --reload
+```
+
+```bash
+pytest --cov-report term-missing --cov=gql_granting --log-cli-level=INFO -x
+```
+

@@ -3,7 +3,6 @@ import sys
 import asyncio
 
 # setting path
-sys.path.append("../gql_granting")
 
 import pytest
 
@@ -14,7 +13,7 @@ from gql_granting.DBDefinitions import ProgramModel, ProgramLevelTypeModel, Prog
 from gql_granting.DBDefinitions import SemesterModel, SubjectModel, TopicModel, LessonModel, LessonTypeModel
 from gql_granting.DBDefinitions import ClassificationLevelModel, ClassificationModel, ClassificationTypeModel
 
-from shared import prepare_demodata, prepare_in_memory_sqllite, get_demodata
+from .shared import prepare_demodata, prepare_in_memory_sqllite, get_demodata
 
 
 @pytest.mark.asyncio

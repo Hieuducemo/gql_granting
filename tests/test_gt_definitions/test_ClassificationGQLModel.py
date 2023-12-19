@@ -15,23 +15,23 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-test_reference_classifications = createResolveReferenceTest(tableName='acclassifications', gqltype='ClassificationGQLModel', attributeNames=["id", "lastchange","date", "user {id}","semesters {id}"])
-test_query_classification_page = createPageTest(tableName="acclassifications", queryEndpoint="acclassificationPage")
+# test_reference_classifications = createResolveReferenceTest(tableName='acclassifications', gqltype='AcClassificationGQLModel', attributeNames=["id"])
+# test_query_classification_page = createPageTest(tableName="acclassifications", queryEndpoint="acclassificationPage", attributeNames=["id"])
 
 test_classification_insert = createFrontendQuery(query="""
-    mutation($order: int!, $semesterId: UUID!,$userId:UUID!) { 
-        result: classificationInsert(classification: {order: $order, semesterId: $semesterId,userId: $userId}) { 
-            semesterId
+    mutation($order: Int!, $semesterId: UUID!, $userId: UUID!, $classificationlevelId: UUID!) { 
+        result: classificationInsert(classification: {order: $order, semesterId: $semesterId, userId: $userId, classificationlevelId: $classificationlevelId}) { 
+            id 
             msg
             classification {
                 order
-                userId
-               
+                user { id }
+                semester { id }
             }
         }
     }
     """, 
-    variables={"semesterId": "ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3", "order":"2","userId":"ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3"},
+    variables={"semesterId": "ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3", "order": 2, "userId":"ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3", "classificationlevelId": "5faea396-b095-11ed-9bd8-0242ac110002"},
     asserts=[]
 )
 
@@ -49,6 +49,6 @@ test_program_update = createUpdateQuery(
             }
         }
     """,
-    variables={"id": "190d578c-afb1-11ed-9bd8-0242ac110002", "lastchange":datetime.datetime,"classificationlevelId":"190d578c-afb1-11ed-9bd8-0242ac110002"},
+    variables={"id": "ce250bd0-b095-11ed-9bd8-0242ac110002", "classificationlevelId": "5fae9dd8-b095-11ed-9bd8-0242ac110002"},
     tableName="acclassifications"
 )

@@ -23,10 +23,21 @@ AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemester
 class AcClassificationGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+
+        # print("AcClassificationGQLModel.resolve_reference")
+        # print("AcClassificationGQLModel.resolve_reference", id)
+        print("AcClassificationGQLModel.resolve_reference", type(id))
+        # print("AcClassificationGQLModel.resolve_reference", info)
+        if not isinstance(id, UUID):
+            id = UUID(id)
+            
         loader = getLoaders(info).classifications
+        # print("AcClassificationGQLModel.resolve_reference", loader)
         result = await loader.load(id)
+        print(result)
         if result is not None:
             result._type_definition = cls._type_definition  # little hack :)
+            result.__strawberry_definition__ = cls.__strawberry_definition__
         return result
 
     @strawberryA.field(description="""primary key""")
@@ -121,12 +132,13 @@ class ClassificationResultGQLModel:
     
 @strawberryA.mutation(description="""Adds new classification (a mark for student)""")
 async def classification_insert(self, info: strawberryA.types.Info, classification: ClassificationInsertGQLModel) -> ClassificationResultGQLModel:
-        loader = getLoaders(info).classifications
-        row = await loader.insert(classification)
-        result = ClassificationResultGQLModel()
-        result.msg = "ok"
-        result.id = row.id
-        return result
+    print("classification_insert", classification)
+    loader = getLoaders(info).classifications
+    row = await loader.insert(classification)
+    result = ClassificationResultGQLModel()
+    result.msg = "ok"
+    result.id = row.id
+    return result
 
 @strawberryA.mutation(description="""Update the classification (a mark for student)""")
 async def classification_update(self, info: strawberryA.types.Info, classification: ClassificationUpdateGQLModel) -> ClassificationResultGQLModel:

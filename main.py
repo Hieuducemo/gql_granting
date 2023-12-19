@@ -46,7 +46,8 @@ async def RunOnceAndReturnSessionMaker():
 
     import os
     demo = os.environ.get("DEMO", None)
-    makeDrop = demo in [None, "true"]
+    # makeDrop = demo in [None, "true"]
+    makeDrop = True
     result = await startEngine(
         connectionstring=connectionString, makeDrop=makeDrop, makeUp=True
     )
@@ -88,7 +89,7 @@ class MyGraphQL(GraphQL):
             "asyncSessionMaker": asyncSessionMaker,
             "user": self._user,
             #"all": await createLoaders_3(asyncSessionMaker)
-            "all": await createLoaders(asyncSessionMaker)
+            "all": createLoaders(asyncSessionMaker)
         }
 
 from gql_granting.GraphTypeDefinitions import schema

@@ -147,7 +147,7 @@ dbmodels = {
     "lessontypes": LessonTypeModel
 }
 
-async def createLoaders(asyncSessionMaker, models=dbmodels):
+def createLoaders(asyncSessionMaker, models=dbmodels):
     def createLambda(loaderName, DBModel):
         return lambda self: createIdLoader(asyncSessionMaker, DBModel)
     
