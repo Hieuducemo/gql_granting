@@ -40,13 +40,13 @@ test_lesson_update = createUpdateQuery(
             lessonUpdate(lesson: {id: $id, lastchange: $lastchange}) {
                 id
                 msg
-                program {
+                lesson {
                     id
                     lastchange
                 }
             }
         }
     """,
-    variables={"id": "190d578c-afb1-11ed-9bd8-0242ac110002", "lastchange":datetime.datetime},
+    variables={"id": "ce250b8a-b095-11ed-9bd8-0242ac110002", "lastchange": datetime.datetime.now().isoformat()},
     tableName="aclessons"
 )

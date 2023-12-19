@@ -118,7 +118,7 @@ async def lesson_insert(self, info: strawberryA.types.Info, lesson: LessonInsert
         return result
 
 @strawberryA.mutation(description="""Update the study lesson""")
-async def lesson_update(self, info: strawberryA.types.Info, lesson: LessonUpdateGQLModel) -> TopicResultGQLModel:
+async def lesson_update(self, info: strawberryA.types.Info, lesson: LessonUpdateGQLModel) -> LessonResultGQLModel:
         loader = getLoaders(info).lessons
         row = await loader.update(lesson)
         result = LessonResultGQLModel()

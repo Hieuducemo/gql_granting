@@ -3,7 +3,7 @@ import datetime
 import asyncio
 import strawberry as strawberryA
 import typing
-from uuid import UUID
+import uuid
 from typing import Optional, List, Union, Annotated
 from .AcProgramEditorGQLModel import AcProgramEditorGQLModel
 #from .AcSubjectGQLModel import AcSubjectGQLModel
@@ -22,7 +22,7 @@ GroupGQLModel= Annotated["GroupGQLModel",strawberryA.lazy(".externals")]
 )
 class AcProgramGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         # try:
         #     uuid_id=UUID(id)
         # except ValueError:
@@ -34,7 +34,7 @@ class AcProgramGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""name""")
@@ -102,7 +102,7 @@ class ProgramWhereFilter:
 
 @strawberryA.field(description="""Finds an program by their id""")
 async def program_by_id(
-        self, info: strawberryA.types.Info, id: UUID#strawberryA.ID
+        self, info: strawberryA.types.Info, id: uuid.UUID #strawberryA.ID
     ) -> typing.Optional[AcProgramGQLModel]:
         print(type(id))
         result = await AcProgramGQLModel.resolve_reference(info=info, id=id)
@@ -126,21 +126,21 @@ from typing import Optional
 @strawberryA.input(description="Define input for the program" )
 class ProgramInsertGQLModel:
     name: str
-    type_id: UUID
-    id: Optional[UUID] = None
+    type_id: uuid.UUID
+    id: Optional[uuid.UUID] = None
     pass
 
 @strawberryA.input(description="Update type of the program")
 class ProgramUpdateGQLModel:
-    id: UUID
+    id: uuid.UUID
     lastchange: datetime.datetime
     name: Optional[str] = None
     name_en: Optional[str] = None
-    type_id: Optional[UUID] = None
+    type_id: Optional[uuid.UUID] = None
 
 @strawberryA.type
 class ProgramResultGQLModel:
-    id: UUID = None
+    id: uuid.UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of user operation""")
