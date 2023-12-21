@@ -16,7 +16,7 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-test_reference_topics = createResolveReferenceTest(tableName='actopics', gqltype='TopicGQLModel', attributeNames=["id", "name","order", "lastchange", "semester {id}","lessons {id}"])
+test_reference_topics = createResolveReferenceTest(tableName='actopics', gqltype='AcTopicGQLModel', attributeNames=["id", "name","order", "lastchange", "semester {id}","lessons {id}"])
 test_query_topic_by_id = createByIdTest(tableName="actopics", queryEndpoint="actopicById")
 
 

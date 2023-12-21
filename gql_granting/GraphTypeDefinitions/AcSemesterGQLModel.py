@@ -6,7 +6,7 @@ from typing import Optional, List, Union, Annotated
 #from .AcTopicGQLModel import AcTopicGQLModel
 from .AcClassificationTypeGQLModel import AcClassificationTypeGQLModel
 #from .AcClassificationGQLModel import AcClassificationGQLModel
-from uuid import UUID
+import uuid 
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
@@ -20,7 +20,7 @@ AcSubjectGQLModel=Annotated["AcSubjectGQLModel",strawberryA.lazy(".AcSubjectGQLM
 )
 class AcSemesterGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).semesters
         result = await loader.load(id)
         if result is not None:
@@ -28,7 +28,7 @@ class AcSemesterGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""semester number""")
@@ -79,7 +79,7 @@ class AcSemesterGQLModel:
 
 @strawberryA.field(description="""Finds a subject semester by its id""")
 async def acsemester_by_id(
-        self, info: strawberryA.types.Info, id: UUID
+        self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> Union["AcSemesterGQLModel", None]:
         result = await AcSemesterGQLModel.resolve_reference(info, id)
         return result
@@ -116,25 +116,25 @@ async def acsemester_page(
 
 @strawberryA.input
 class SemesterInsertGQLModel:
-    subject_id: UUID
-    classificationtype_id: UUID
+    subject_id:uuid.UUID
+    classificationtype_id: uuid.UUID
     order: Optional[int] = 0
     credits: Optional[int] = 0
-    id: Optional[UUID] = None
+    id: Optional[uuid.UUID] = None
     valid: Optional[bool] = True
 
 @strawberryA.input
 class SemesterUpdateGQLModel:
-    id: UUID
+    id: uuid.UUID
     lastchange: datetime.datetime
     valid: Optional[bool] = None
     order: Optional[int] = None
     credits: Optional[int] = None
-    classificationtype_id: Optional[UUID] = None
+    classificationtype_id: Optional[uuid.UUID] = None
 
 @strawberryA.type
 class SemesterResultGQLModel:
-    id: UUID = None
+    id: uuid.UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of semester operation""")

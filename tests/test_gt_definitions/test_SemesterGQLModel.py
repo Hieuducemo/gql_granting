@@ -15,22 +15,22 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-test_reference_semesters = createResolveReferenceTest(tableName='acsemesters', gqltype='SemesterGQLModel', attributeNames=["id", "order", "lastchange","credits", "subjects {id}","classification {id}"])
+test_reference_semesters = createResolveReferenceTest(tableName='acsemesters', gqltype='AcSemesterGQLModel', attributeNames=["id"])
 test_query_semester_page = createPageTest(tableName="acsemesters", queryEndpoint="acsemesterPage")
 
 test_semester_insert = createFrontendQuery(query="""
     mutation($classificationtypeId: UUID!, $subjectId: UUID!) { 
-        result: semesterInsert(semester: {classification: $id, subjectId: $id}) { 
+        result: semesterInsert(semester: {classificationtypeId: $classificationtypeId, subjectId: $subjectId}) { 
             id
             msg
             semester {
-                id
-                
+                classificationtype { id }
+                subject { id }
             }
         }
     }
     """, 
-    variables={"id": "ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3", "name": "new semester"},
+    variables={"classificationtypeId": "a00a0642-b095-11ed-9bd8-0242ac110002", "subjectid": "ce250a68-b095-11ed-9bd8-0242ac110002"},
     asserts=[]
 )
 

@@ -15,7 +15,7 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-test_reference_sujects = createResolveReferenceTest(tableName='acsubjects', gqltype='SubjectGQLModel', attributeNames=["id", "name", "lastchange", "program {id}","semesters {id}"])
+test_reference_sujects = createResolveReferenceTest(tableName='acsubjects', gqltype='AcSubjectGQLModel', attributeNames=["id", "name", "lastchange", "program {id}","semesters {id}"])
 test_query_subject_page = createPageTest(tableName="acsubjects", queryEndpoint="acsubjectPage")
 test_query_subject_by_id = createByIdTest(tableName="acsubjects", queryEndpoint="acsubjectById")
 

@@ -1,6 +1,6 @@
 import pytest
 from gql_granting.GraphTypeDefinitions import schema
-
+import datetime
 from ..shared import (
     prepare_demodata,
     prepare_in_memory_sqllite,
@@ -15,13 +15,13 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-test_reference_programs = createResolveReferenceTest(tableName='acprograms', gqltype='ProgramGQLModel', attributeNames=["id", "name"])
+test_reference_programs = createResolveReferenceTest(tableName='acprograms', gqltype='AcProgramGQLModel', attributeNames=["id","name"])
 test_query_program_by_id = createByIdTest(tableName="acprograms", queryEndpoint="programById")
 test_query_program_page = createPageTest(tableName="acprograms", queryEndpoint="programPage")
 
 test_program_insert = createFrontendQuery(query="""
-    mutation($id: UUID!, $name: String!) { 
-        result: programInsert(program: {id: $id, name: $name}) { 
+    mutation($typeId: UUID!, $name: String!) { 
+        result: programInsert(program: {typeId: $typeId, name: $name}) { 
             id
             msg
             program {
@@ -32,23 +32,23 @@ test_program_insert = createFrontendQuery(query="""
         }
     }
     """, 
-    variables={"id": "ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3", "name": "new program"},
+    variables={"typeId": "fd4f0980-9315-11ed-9b95-0242ac110002", "name": "new program"},
     asserts=[]
 )
 
 test_program_update = createUpdateQuery(
     query="""
-        mutation($id: UUID!, $name: String!, $lastchange: DateTime!) {
-            programUpdate(program: {id: $id, name: $name, lastchange: $lastchange}) {
+        mutation($id: UUID!, $lastchange: DateTime!) {
+            programUpdate(program: {id: $id, lastchange: $lastchange}) {
                 id
                 msg
                 program {
                     id
-                    name
+                    
                 }
             }
         }
     """,
-    variables={"id": "190d578c-afb1-11ed-9bd8-0242ac110002", "name": "new name"},
+    variables={"id": "2766fc9a-b095-11ed-9bd8-0242ac110002", "lastchange": datetime.datetime.now().isoformat()},
     tableName="acprograms"
 )

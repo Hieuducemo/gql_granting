@@ -35,7 +35,7 @@ test_classification_insert = createFrontendQuery(query="""
     asserts=[]
 )
 
-test_program_update = createUpdateQuery(
+test_classification_update = createUpdateQuery(
     query="""
         mutation($classificationlevelId: UUID!, $id: UUID!, $lastchange: DateTime!) {
             classificationUpdate(classification: {classificationlevelId: $classificationlevelId,id: $id, lastchange: $lastchange}) {
@@ -43,12 +43,12 @@ test_program_update = createUpdateQuery(
                 msg
                 classification{
                     id
-                
+                   
                     lastchange
                 }
-            }
+            } 
         }
     """,
-    variables={"id": "ce250bd0-b095-11ed-9bd8-0242ac110002", "classificationlevelId": "5fae9dd8-b095-11ed-9bd8-0242ac110002"},
+    variables={"id": "ce250bd0-b095-11ed-9bd8-0242ac110002", "classificationlevelId": "5fae9dd8-b095-11ed-9bd8-0242ac110002","lastchange": datetime.datetime.now().isoformat()},
     tableName="acclassifications"
 )
