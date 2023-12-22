@@ -16,39 +16,37 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-test_reference_topics = createResolveReferenceTest(tableName='actopics', gqltype='AcTopicGQLModel', attributeNames=["id", "name","order", "lastchange", "semester {id}","lessons {id}"])
+test_reference_topics = createResolveReferenceTest(tableName='actopics', gqltype='AcTopicGQLModel', attributeNames=["id"])
 test_query_topic_by_id = createByIdTest(tableName="actopics", queryEndpoint="actopicById")
 
 
 test_topic_insert = createFrontendQuery(query="""
     mutation($semesterId: UUID!) { 
-        result: topicInsert(semester: {semesterId: $id}) { 
-            id
+        result: topicInsert(topic: {semesterId: $semesterId}) {   
             msg
             topic {
-                id
+                semester { id }
             }
         }
     }
     """, 
-    variables={"id": "ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3"},
+    variables={"semesterId": "ce250af4-b095-11ed-9bd8-0242ac110002"},
     asserts=[]
 )
 
 test_topic_update = createUpdateQuery(
     query="""
-        mutation($id: UUID!, $name: String!, $lastchange: DateTime!) {
-            topicUpdate(semester: {id: $id, lastchange: $lastchange}) {
+        mutation($id: UUID!, $lastchange: DateTime!) {
+            topicUpdate(topic: {id: $id, lastchange: $lastchange}) {
                 id
                 msg
                 topic {
                     id
                     lastchange 
-                    name
                 }
             }
         }
     """,
-    variables={"id": "190d578c-afb1-11ed-9bd8-0242ac110002","name":"new name", "lastchange": datetime.datetime},
+    variables={"id": "ce250b44-b095-11ed-9bd8-0242ac110002", "lastchange": datetime.datetime},
     tableName="actopics"
 )

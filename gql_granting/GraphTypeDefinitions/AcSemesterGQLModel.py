@@ -15,12 +15,16 @@ def getUser(info):
 AcClassificationGQLModel= Annotated["AcClassificationGQLModel",strawberryA.lazy(".AcClassificationGQLModel")]
 AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel")]
 AcSubjectGQLModel=Annotated["AcSubjectGQLModel",strawberryA.lazy(".AcSubjectGQLModel")]
+
 @strawberryA.federation.type(
     keys=["id"], description="""Entity representing each semester in study subject"""
 )
 class AcSemesterGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
+        if isinstance(id, str):
+             id = uuid.UUID(id)
+
         loader = getLoaders(info).semesters
         result = await loader.load(id)
         if result is not None:

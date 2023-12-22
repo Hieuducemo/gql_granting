@@ -1,7 +1,7 @@
 
 import datetime
 import strawberry as strawberryA
-from uuid import UUID 
+import uuid
 from typing import Optional, List, Annotated
 from .externals import GroupGQLModel 
 #from .AcProgramGQLModel import AcProgramGQLModel
@@ -26,7 +26,7 @@ AcSemesterGQLModel =Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemester
 )
 class AcSubjectGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).subjects
         result = await loader.load(id)
         if result is not None:
@@ -34,7 +34,7 @@ class AcSubjectGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""time stamp""")
@@ -82,7 +82,7 @@ class AcSubjectGQLModel:
 import typing
 @strawberryA.field(description="""Finds a subject by its id""")
 async def acsubject_by_id(
-        self, info: strawberryA.types.Info, id: UUID
+        self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> typing.Optional[AcSubjectGQLModel]:
         result = await AcSubjectGQLModel.resolve_reference(info, id)
         return result
@@ -106,13 +106,13 @@ async def acsubject_page(
 class SubjectInsertGQLModel:
     name: str
     name_en: str
-    program_id: UUID
-    id: Optional[UUID] = None
+    program_id: uuid.UUID
+    id: Optional[uuid.UUID] = None
     valid: Optional[bool] = True
 
 @strawberryA.input
 class SubjectUpdateGQLModel:
-    id: UUID
+    id: uuid.UUID
     lastchange: datetime.datetime
     name: Optional[str] = None
     name_en: Optional[str] = None
@@ -120,7 +120,7 @@ class SubjectUpdateGQLModel:
 
 @strawberryA.type
 class SubjectResultGQLModel:
-    id: UUID = None
+    id: uuid.UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of subject operation""")

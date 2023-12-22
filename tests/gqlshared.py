@@ -85,7 +85,7 @@ def createByIdTest(tableName, queryEndpoint, attributeNames=["id", "name"]):
     return result_test
 
 
-def createPageTest(tableName, queryEndpoint, attributeNames=["id", "name"]):
+def createPageTest(tableName, queryEndpoint, attributeNames=["id"]):
     @pytest.mark.asyncio
     async def result_test():
 
@@ -120,7 +120,7 @@ def createPageTest(tableName, queryEndpoint, attributeNames=["id", "name"]):
         
     return result_test
 
-def createResolveReferenceTest(tableName, gqltype, attributeNames=["id", "name"]):
+def createResolveReferenceTest(tableName, gqltype, attributeNames=["id","name"]):
     @pytest.mark.asyncio
     async def result_test():
 

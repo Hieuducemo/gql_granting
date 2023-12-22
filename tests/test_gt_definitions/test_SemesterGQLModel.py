@@ -24,13 +24,13 @@ test_semester_insert = createFrontendQuery(query="""
             id
             msg
             semester {
-                classificationtype { id }
+                classificationType { id }
                 subject { id }
             }
         }
     }
     """, 
-    variables={"classificationtypeId": "a00a0642-b095-11ed-9bd8-0242ac110002", "subjectid": "ce250a68-b095-11ed-9bd8-0242ac110002"},
+    variables={"classificationtypeId": "a00a0642-b095-11ed-9bd8-0242ac110002", "subjectId": "3ed497ea-ab40-4e94-a93e-9d9627497652"},
     asserts=[]
 )
 
@@ -47,6 +47,6 @@ test_semester_update = createUpdateQuery(
             }
         }
     """,
-    variables={"id": "190d578c-afb1-11ed-9bd8-0242ac110002", "lastchange": datetime.datetime},
+    variables={"id": "85c0db4a-148c-477e-ad5b-3985eaba1f90", "lastchange": datetime.datetime.now().isoformat()},
     tableName="acsemesters"
 )
