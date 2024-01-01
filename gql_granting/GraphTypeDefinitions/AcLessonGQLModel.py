@@ -63,12 +63,33 @@ class AcLessonGQLModel:
 # Special fields for query
 #
 #################################################
+
+from typing import Any, NewType
+
+JSON = strawberryA.scalar(
+    NewType("JSON", object),
+    description="The `JSON` scalar type represents JSON values as specified by ECMA-404",
+    serialize=lambda v: v,
+    parse_value=lambda v: v,
+)
+
 @strawberryA.field(description="""Finds a lesson by its id""")
 async def aclesson_by_id(
         self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> Union["AcLessonGQLModel", None]:
         result = await AcLessonGQLModel.resolve_reference(info, id)
         return result
+    
+from dataclasses import dataclass 
+from uoishelpers.resolvers import createInputs
+
+@createInputs 
+@dataclass 
+class LessonWhereFilter: 
+   type_id : uuid.UUID 
+   createdby : uuid.UUID 
+   from .AcLessonTypeGQLModel import LessonTypeWhereFilter 
+   type: LessonTypeWhereFilter      
 
 @strawberryA.field(description="""Gets all lesson types""")
 async def aclesson_type_page(

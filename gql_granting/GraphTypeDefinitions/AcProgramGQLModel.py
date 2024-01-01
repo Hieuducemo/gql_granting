@@ -93,9 +93,8 @@ JSON = strawberryA.scalar(
     serialize=lambda v: v,
     parse_value=lambda v: v,
 )
-class ProgramWhereFilter:
-    name: str 
-    name_en:str 
+
+
     
 
 @strawberryA.field(description="""Finds an program by their id""")
@@ -105,6 +104,19 @@ async def program_by_id(
         print(type(id))
         result = await AcProgramGQLModel.resolve_reference(info=info, id=id)
         return result
+
+from dataclasses import dataclass 
+from uoishelpers.resolvers import createInputs
+
+@createInputs
+@dataclass 
+class ProgramWhereFilter:
+    name: str 
+    name_en:str 
+    type_id : uuid.UUID
+    createdby: uuid.UUID
+    from .AcProgramTypeGQLModel import ProgramTypeWhereFilter
+    type: ProgramTypeWhereFilter
 
 @strawberryA.field(description="""Finds all programs""")
 async def program_page( 

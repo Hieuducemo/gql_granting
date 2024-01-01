@@ -50,6 +50,19 @@ async def aclesson_type_by_id(
     ) -> Union["AcLessonTypeGQLModel", None]:
         result = await AcLessonTypeGQLModel.resolve_reference(info, id)
         return result
+
+from dataclasses import dataclass 
+from uoishelpers.resolvers import createInputs
+LessonWhereFilter = Annotated["LessonWhereFilter",strawberryA.lazy(".AcLessonGQLModel")]
+@createInputs 
+@dataclass 
+class LessonTypeWhereFilter: 
+     name : str 
+     name_en : str 
+     createdby : uuid.UUID 
+     
+     lessons : LessonWhereFilter 
+     
 @strawberryA.field(description="""Gets all lesson types""")
 async def aclesson_type_page(
         self, info: strawberryA.types.Info

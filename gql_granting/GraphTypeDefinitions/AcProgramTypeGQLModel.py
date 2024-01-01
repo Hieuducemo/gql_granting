@@ -7,7 +7,7 @@ from .AcProgramFormTypeGQLModel import AcProgramFormTypeGQLModel
 from .AcProgramTitleTypeGQLModel import AcProgramTitleTypeGQLModel
 from .AcProgramLevelTypeGQLModel import AcProgramLevelTypeGQLModel
 from .AcProgramLanguageTypeGQLModel import AcProgramLanguageTypeGQLModel 
-from uuid import UUID
+import uuid 
 
 def getLoaders(info):    
     return info.context['all']
@@ -22,7 +22,7 @@ ProgramUpdateGQLModel= Annotated["ProgramUpdateGQLModel",strawberryA.lazy(".AcPr
 )
 class AcProgramTypeGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).programtypes
         result = await loader.load(id)
         if result is not None:
@@ -30,7 +30,7 @@ class AcProgramTypeGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""name""")
@@ -74,11 +74,24 @@ class AcProgramTypeGQLModel:
 #################################################
 @strawberryA.field(description="""Finds a program type its id""")
 async def program_type_by_id(
-        self, info: strawberryA.types.Info, id: UUID
+        self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> Union["AcProgramTypeGQLModel", None]:
         result = await AcProgramTypeGQLModel.resolve_reference(info, id)
         return result
+    
+from dataclasses import dataclass
+from uoishelpers.resolvers import createInputs
 
+ProgramWhereFilter = Annotated["ProgramWhereFilter", strawberryA.lazy(".AcProgramGQLModel")]
+@createInputs
+@dataclass 
+class ProgramTypeWhereFilter: 
+    name: str   
+    name_en: str 
+    id: uuid.UUID 
+    
+    programs: ProgramWhereFilter 
+    
 #################################################
 #
 # Special fields for mutation
@@ -89,25 +102,25 @@ async def program_type_by_id(
 class ProgramTypeInsertGQLModel:
     name: str
     name_en: str
-    language_id: UUID
-    level_id: UUID
-    form_id: UUID
-    title_id: UUID
-    id: Optional[UUID] = None
+    language_id: uuid.UUID
+    level_id: uuid.UUID
+    form_id: uuid.UUID
+    title_id: uuid.UUID
+    id: Optional[uuid.UUID] = None
 
 @strawberryA.input
 class ProgramTypeUpdateGQLModel:
-    id: UUID
+    id: uuid.UUID
     lastchange: datetime.datetime
     name: Optional[str] = None
     name_en: Optional[str] = None
-    language_id: Optional[UUID] = None
-    level_id: Optional[UUID] = None
-    form_id: Optional[UUID] = None
-    title_id: Optional[UUID] = None
+    language_id: Optional[uuid.UUID] = None
+    level_id: Optional[uuid.UUID] = None
+    form_id: Optional[uuid.UUID] = None
+    title_id: Optional[uuid.UUID] = None
 
 class ProgramTypeResultGQLModel:
-    id: UUID = None
+    id: uuid.UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of user operation""")

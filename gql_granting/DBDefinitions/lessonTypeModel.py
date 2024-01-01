@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import Column, String, BigInteger, Integer, DateTime, ForeignKey, Sequence, Table, Boolean, Float, DECIMAL
 from .Base import BaseModel, UUIDFKey, UUIDColumn
-
+from sqlalchemy.orm import relationship 
 class LessonTypeModel(BaseModel):
     __tablename__ = "aclessontypes"
     id = UUIDColumn()
@@ -17,5 +17,5 @@ class LessonTypeModel(BaseModel):
 
     # items = relationship('StudyThemeItemModel', back_populates='type')
 
-
+    lessons = relationship("lessonModel", back_populates = "type", uselist = True )
 ##############################################

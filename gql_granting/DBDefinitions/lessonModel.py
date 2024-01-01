@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import Column, String, BigInteger, Integer, DateTime, ForeignKey, Sequence, Table, Boolean, Float, DECIMAL
 from .Base import BaseModel, UUIDFKey, UUIDColumn
-
+from sqlalchemy.orm import relationship 
 class LessonModel(BaseModel):
     """Lecture, 2h,"""
 
@@ -16,5 +16,5 @@ class LessonModel(BaseModel):
     changedby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
     createdby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
 
-    # type = relationship('ThemeTypeModel', back_populates='items')
+    type = relationship('lessonTypeModel', back_populates='lessons', uselist = True)
     # theme = relationship('StudyThemeModel', back_populates='items')

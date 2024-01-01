@@ -2,7 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-from uuid import UUID 
+import uuid
 from typing import Optional, List, Union, Annotated
 
 def getLoaders(info):
@@ -17,7 +17,7 @@ def getUser(info):
 )
 class AcClassificationTypeGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).classificationtypes
         result = await loader.load(id)
         if result is not None:
@@ -25,7 +25,7 @@ class AcClassificationTypeGQLModel:
         return result
 
     @strawberryA.field(description="primary key")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="name")
@@ -48,9 +48,28 @@ class AcClassificationTypeGQLModel:
 
 @strawberryA.field(description="""Lists classifications types""")
 async def acclassification_type_page(
-        self, info: strawberryA.types.Info, user_id: UUID, skip: int = 0, limit: int = 10
+        self, info: strawberryA.types.Info, user_id: uuid.UUID, skip: int = 0, limit: int = 10
     ) -> List["AcClassificationTypeGQLModel"]:
         loader = getLoaders(info).classificationtypes
         result = await loader.page(skip, limit)
         return result
 
+@strawberryA.field(description="""Finds a classification type its id""")
+async def classification_type_by_id(
+         self, info: strawberryA.types.Info, id: uuid.UUID
+    ) -> Union["AcClassificationTypeGQLModel", None]:
+        result = await AcClassificationTypeGQLModel.resolve_reference(info, id)
+        return result 
+
+from dataclasses import dataclass 
+from uoishelpers.resolvers import createInputs 
+ClassificationWhereFilter = Annotated["ClassificationWhereFilter", strawberryA.lazy(".AcClassificationGQLModel")]
+
+@createInputs
+@dataclass 
+class ClassificationTypeWhereFilter: 
+    name : str 
+    name_en : str 
+    createdby :uuid.UUID 
+    
+    classifications: ClassificationWhereFilter 

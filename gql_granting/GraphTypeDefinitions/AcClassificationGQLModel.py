@@ -2,7 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-from uuid import UUID 
+import uuid 
 from typing import Optional, List, Union, Annotated
 #from .AcSemesterGQLModel import AcSemesterGQLModel
 from .AcClassificationLevelGQLModel import AcClassificationLevelGQLModel
@@ -22,14 +22,14 @@ AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemester
 )
 class AcClassificationGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
 
         # print("AcClassificationGQLModel.resolve_reference")
         # print("AcClassificationGQLModel.resolve_reference", id)
         print("AcClassificationGQLModel.resolve_reference", type(id))
         # print("AcClassificationGQLModel.resolve_reference", info)
-        if not isinstance(id, UUID):
-            id = UUID(id)
+        if not isinstance(id, uuid.UUID):
+            id = uuid.UUID(id)
             
         loader = getLoaders(info).classifications
         # print("AcClassificationGQLModel.resolve_reference", loader)
@@ -41,7 +41,7 @@ class AcClassificationGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""datetime lastchange""")
@@ -83,6 +83,15 @@ class AcClassificationGQLModel:
 #
 #################################################
 
+from typing import Any, NewType
+
+JSON = strawberryA.scalar(
+    NewType("JSON", object),
+    description="The `JSON` scalar type represents JSON values as specified by ECMA-404",
+    serialize=lambda v: v,
+    parse_value=lambda v: v,
+)
+
 @strawberryA.field(description="""Lists classifications""")
 async def acclassification_page(
         self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10
@@ -91,9 +100,19 @@ async def acclassification_page(
         result = await loader.page(skip=skip, limit=limit)
         return result
 
+from dataclasses import dataclass 
+from uoishelpers.resolvers import createInputs 
+@createInputs 
+@dataclass 
+class ClassificationWhereFilter: 
+    classficationtype_id : uuid.UUID  
+    createdby : uuid.UUID
+    from .AcClassificationTypeGQLModel import ClassificationTypeWhereFilter
+    type: ClassificationTypeWhereFilter 
+    
 @strawberryA.field(description="""Lists classifications for the user""")
 async def acclassification_page_by_user(
-        self, info: strawberryA.types.Info, user_id: UUID, skip: int = 0, limit: int = 10
+        self, info: strawberryA.types.Info, user_id: uuid.UUID, skip: int = 0, limit: int = 10
     ) -> List["AcClassificationGQLModel"]:
         loader = getLoaders(info).classifications
         result = await loader.filter_by(user_id=user_id)
@@ -107,22 +126,22 @@ async def acclassification_page_by_user(
 
 @strawberryA.input
 class ClassificationInsertGQLModel:
-    semester_id: UUID
-    user_id: UUID
-    classificationlevel_id: UUID
-    # classificationtype_id: UUID
+    semester_id: uuid.UUID
+    user_id: uuid.UUID
+    classificationlevel_id: uuid.UUID
+    classificationtype_id: uuid.UUID
     order: int
-    id: Optional[UUID] = None
+    id: Optional[uuid.UUID] = None
 
 @strawberryA.input
 class ClassificationUpdateGQLModel:
-    id: UUID
+    id: uuid.UUID
     lastchange: datetime.datetime
-    classificationlevel_id: UUID
+    classificationlevel_id:uuid.UUID
 
 @strawberryA.type
 class ClassificationResultGQLModel:
-    id: UUID = None
+    id: uuid.UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of semester operation""")
