@@ -5,6 +5,6 @@ from .mutation import Mutation
 from .externals import UserGQLModel,GroupGQLModel
 
 schema = strawberry.federation.Schema(query=Query, mutation=Mutation,types=(
-    UserGQLModel,GroupGQLModel
+   UserGQLModel,GroupGQLModel
 ))
 # schema = strawberry.federation.Schema(query=Query)

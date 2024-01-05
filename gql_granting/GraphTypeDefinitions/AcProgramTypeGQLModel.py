@@ -97,8 +97,8 @@ class ProgramTypeWhereFilter:
 # Special fields for mutation
 #
 #################################################
-@strawberryA.type
-@strawberryA.input
+
+@strawberryA.input(description="Insert new program type")
 class ProgramTypeInsertGQLModel:
     name: str
     name_en: str
@@ -107,8 +107,10 @@ class ProgramTypeInsertGQLModel:
     form_id: uuid.UUID
     title_id: uuid.UUID
     id: Optional[uuid.UUID] = None
+    pass
 
-@strawberryA.input
+
+@strawberryA.input(description="Update current study program type")
 class ProgramTypeUpdateGQLModel:
     id: uuid.UUID
     lastchange: datetime.datetime
@@ -118,7 +120,8 @@ class ProgramTypeUpdateGQLModel:
     level_id: Optional[uuid.UUID] = None
     form_id: Optional[uuid.UUID] = None
     title_id: Optional[uuid.UUID] = None
-
+    
+@strawberryA.type
 class ProgramTypeResultGQLModel:
     id: uuid.UUID = None
     msg: str = None
@@ -138,7 +141,7 @@ async def program_type_insert(self, info: strawberryA.types.Info, program_type: 
         return result
     
 @strawberryA.mutation(description="""Update the study program type""")
-async def program_type_update(self, info: strawberryA.types.Info, program_type: ProgramUpdateGQLModel) -> ProgramTypeResultGQLModel:
+async def program_type_update(self, info: strawberryA.types.Info, program_type: ProgramTypeUpdateGQLModel) -> ProgramTypeResultGQLModel:
         loader = getLoaders(info).programtypes
         row = await loader.update(program_type)
         result = ProgramTypeResultGQLModel()

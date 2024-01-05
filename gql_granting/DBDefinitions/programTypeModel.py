@@ -18,9 +18,10 @@ class ProgramTypeModel(BaseModel):
     id = UUIDColumn()
     name = Column(String)
     name_en = Column(String)
+    lastchange = Column(DateTime, server_default=sqlalchemy.sql.func.now())
     form_id = Column(ForeignKey("acprogramforms.id"), index=True)
     language_id = Column(ForeignKey("acprogramlanguages.id"), index=True)
     level_id = Column(ForeignKey("acprogramlevels.id"), index=True)
     title_id = Column(ForeignKey("acprogramtitles.id"), index=True)
     # combination
-    programs = relationship("programModel", back_populates ="type", uselist= True)
+    # programs = relationship("programModel", back_populates ="type", uselist= True)

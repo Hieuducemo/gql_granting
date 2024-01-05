@@ -28,4 +28,4 @@ class ClassificationModel(BaseModel):
     lastchange = Column(DateTime, server_default=sqlalchemy.sql.func.now())
     changedby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
     createdby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
-    type = relationship("classificationTypeModel",back_populates="classifications",uselist = True)
+    # type = relationship("classificationTypeModel",back_populates="classifications",uselist = True)

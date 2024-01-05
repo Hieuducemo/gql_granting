@@ -16,5 +16,5 @@ class LessonModel(BaseModel):
     changedby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
     createdby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
 
-    type = relationship('lessonTypeModel', back_populates='lessons', uselist = True)
+    # type = relationship('lessonTypeModel', back_populates='lessons', uselist = True)
     # theme = relationship('StudyThemeModel', back_populates='items')

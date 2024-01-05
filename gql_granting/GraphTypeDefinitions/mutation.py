@@ -26,4 +26,8 @@ class Mutation:
     lesson_insert= lesson_insert 
     from .AcLessonGQLModel import lesson_update 
     lesson_update = lesson_update 
+    from .AcProgramTypeGQLModel import program_type_update
+    program_type_update = program_type_update
+    from .AcProgramTypeGQLModel import program_type_insert 
+    program_type_insert = program_type_insert
     pass

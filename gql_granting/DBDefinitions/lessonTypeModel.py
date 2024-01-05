@@ -17,5 +17,5 @@ class LessonTypeModel(BaseModel):
 
     # items = relationship('StudyThemeItemModel', back_populates='type')
 
-    lessons = relationship("lessonModel", back_populates = "type", uselist = True )
+    # lessons = relationship("lessonModel", back_populates = "type", uselist = True )
 ##############################################

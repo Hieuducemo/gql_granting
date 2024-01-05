@@ -21,4 +21,4 @@ class ProgramModel(BaseModel):
     lastchange = Column(DateTime, server_default=sqlalchemy.sql.func.now())
     changedby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
     createdby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)
-    type = relationship("programTypeModel", back_populates="programs",uselist = True)
+    # type = relationship("programTypeModel", back_populates="programs",uselist = True)

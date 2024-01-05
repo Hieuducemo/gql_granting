@@ -95,11 +95,9 @@ JSON = strawberryA.scalar(
 )
 
 
-    
-
 @strawberryA.field(description="""Finds an program by their id""")
 async def program_by_id(
-        self, info: strawberryA.types.Info, id: uuid.UUID #strawberryA.ID
+        self, info: strawberryA.types.Info, id: uuid.UUID 
     ) -> typing.Optional[AcProgramGQLModel]:
         print(type(id))
         result = await AcProgramGQLModel.resolve_reference(info=info, id=id)

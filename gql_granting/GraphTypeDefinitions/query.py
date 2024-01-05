@@ -22,5 +22,7 @@ class Query:
     acsubject_page = acsubject_page
     from .AcTopicGQLModel import actopic_by_id 
     actopic_by_id = actopic_by_id
+    from .AcProgramTypeGQLModel import program_type_by_id
+    program_type_by_id = program_type_by_id
     pass
       
