@@ -15,23 +15,24 @@ from ..gqlshared import (
     createUpdateQuery
 )
 
-# test_reference_classifications = createResolveReferenceTest(tableName='acclassifications', gqltype='AcClassificationGQLModel', attributeNames=["id"])
-# test_query_classification_page = createPageTest(tableName="acclassifications", queryEndpoint="acclassificationPage", attributeNames=["id"])
+test_reference_classifications = createResolveReferenceTest(tableName='acclassifications', gqltype='AcClassificationGQLModel', attributeNames=["id"])
+test_query_classification_page = createPageTest(tableName="acclassifications", queryEndpoint="acclassificationPage", attributeNames=["id"])
 
 test_classification_insert = createFrontendQuery(query="""
-    mutation($order: Int!, $semesterId: UUID!, $userId: UUID!, $classificationlevelId: UUID!) { 
-        result: classificationInsert(classification: {order: $order, semesterId: $semesterId, userId: $userId, classificationlevelId: $classificationlevelId}) { 
+    mutation($order: Int!, $semesterId: UUID!, $userId: UUID!, $classificationlevelId: UUID!,$classificationtypeId: UUID!) { 
+        result: classificationInsert(classification: {order: $order, semesterId: $semesterId, userId: $userId, classificationlevelId: $classificationlevelId, classificationtypeId: $classificationtypeId}) { 
             id 
             msg
             classification {
                 order
                 user { id }
                 semester { id }
+               
             }
         }
     }
     """, 
-    variables={"semesterId": "ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3", "order": 2, "userId":"ccde3a8b-81d0-4e2b-9aac-42e0eb2255b3", "classificationlevelId": "5faea396-b095-11ed-9bd8-0242ac110002"},
+    variables={"semesterId": "ce250af4-b095-11ed-9bd8-0242ac110002", "order": 2, "userId":"2d9dc5ca-a4a2-11ed-b9df-0242ac120003", "classificationlevelId": "5fae9dd8-b095-11ed-9bd8-0242ac110002","classificationtypeId":"a00a0642-b095-11ed-9bd8-0242ac110002"},
     asserts=[]
 )
 

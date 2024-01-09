@@ -6,7 +6,7 @@ import uuid
 from typing import Optional, List, Union, Annotated
 #from .AcSemesterGQLModel import AcSemesterGQLModel
 from .AcClassificationLevelGQLModel import AcClassificationLevelGQLModel
-
+from .AcClassificationTypeGQLModel import AcClassificationTypeGQLModel
 
 def getLoaders(info):
     return info.context['all']
@@ -52,7 +52,7 @@ class AcClassificationGQLModel:
     def date(self) -> datetime.datetime:
         return self.date
 
-    @strawberryA.field(description="""ORDER OF CLASSI""")
+    @strawberryA.field(description="""ORDER OF CLASS""")
     def order(self) -> int:
         return self.order
 
@@ -67,10 +67,10 @@ class AcClassificationGQLModel:
         result = await AcSemesterGQLModel.resolve_reference(info, id=self.semester_id)
         return result
 
-    # @strawberryA.field(description="""Type""")
-    # async def type(self, info: strawberryA.types.Info) -> "AcClassificationTypeGQLModel":
-    #     result = await AcClassificationTypeGQLModel.resolve_reference(info, id=self.classificationtype_id)
-    #     return result
+    @strawberryA.field(description="""Type""")
+    async def type(self, info: strawberryA.types.Info) -> "AcClassificationTypeGQLModel":
+       result = await AcClassificationTypeGQLModel.resolve_reference(info, id=self.classificationtype_id)
+       return result
 
     @strawberryA.field(description="""Level""")
     async def level(self, info: strawberryA.types.Info) -> "AcClassificationLevelGQLModel":

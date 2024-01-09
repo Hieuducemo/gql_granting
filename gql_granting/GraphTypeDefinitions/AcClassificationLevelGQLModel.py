@@ -1,8 +1,7 @@
 
 import strawberry as strawberryA
-from uuid import UUID
+import uuid
 from typing import  Annotated
-
 
 def getLoaders(info):
     return info.context['all']
@@ -17,7 +16,7 @@ def getUser(info):
 )
 class AcClassificationLevelGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).classificationlevels
         result = await loader.load(id)
         if result is not None:
@@ -25,7 +24,7 @@ class AcClassificationLevelGQLModel:
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""name (like A)""")
