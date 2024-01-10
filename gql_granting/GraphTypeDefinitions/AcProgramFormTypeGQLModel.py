@@ -2,7 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-from uuid import UUID
+import uuid 
 from typing import Optional, List, Union, Annotated
 
 def getLoaders(info):
@@ -17,7 +17,7 @@ def getUser(info):
 )
 class AcProgramFormTypeGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).programforms
         result = await loader.load(id)
         if result is not None:
@@ -25,7 +25,7 @@ class AcProgramFormTypeGQLModel:
         return result
 
     @strawberryA.field(description="primary key")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="name")
@@ -49,7 +49,7 @@ class AcProgramFormTypeGQLModel:
 
 @strawberryA.field(description="""Finds a program from its id""")
 async def program_form_by_id(
-        self, info: strawberryA.types.Info, id: UUID
+        self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> Union["AcProgramFormTypeGQLModel", None]:
         result = await AcProgramFormTypeGQLModel.resolve_reference(info, id)
         return result

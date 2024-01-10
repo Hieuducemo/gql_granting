@@ -4,12 +4,13 @@ import asyncio
 import strawberry as strawberryA
 import uuid
 from typing import Optional, List, Union, Annotated
-
+import typing
 def getLoaders(info):
     return info.context['all']
 def getUser(info):
     return info.context["user"]
 
+UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".externals")]
 #UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
 
 @strawberryA.federation.type(
@@ -19,6 +20,7 @@ class AcClassificationTypeGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).classificationtypes
+        if isinstance(id, str): id = uuid.UUID(id)
         result = await loader.load(id)
         if result is not None:
             result.__strawberry_definition__ = cls.__strawberry_definition__  # little hack :)
@@ -27,7 +29,12 @@ class AcClassificationTypeGQLModel:
     @strawberryA.field(description="primary key")
     def id(self) -> uuid.UUID:
         return self.id
-
+    
+    @strawberryA.field(description="""User""")
+    async def user(self, info: strawberryA.types.Info) -> Optional["UserGQLModel"]:
+        from .externals import UserGQLModel
+        return await UserGQLModel.resolve_reference(id=self.user_id) 
+    
     @strawberryA.field(description="name")
     def name(self) -> str:
         return self.name
@@ -48,7 +55,7 @@ class AcClassificationTypeGQLModel:
 
 @strawberryA.field(description="""Lists classifications types""")
 async def acclassification_type_page(
-        self, info: strawberryA.types.Info, user_id: uuid.UUID, skip: int = 0, limit: int = 10
+        self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10
     ) -> List["AcClassificationTypeGQLModel"]:
         loader = getLoaders(info).classificationtypes
         result = await loader.page(skip, limit)

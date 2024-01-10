@@ -10,7 +10,7 @@ class ClassificationTypeModel(BaseModel):
     name_en = Column(String)
     # Z, KZ, Z+Zk, Zk, ...
     # classificationsemesters = relationship('SemesterModel', back_populates='classifications')
-
+    user_id = UUIDFKey(nullable=True)
     created = Column(DateTime, server_default=sqlalchemy.sql.func.now())
     lastchange = Column(DateTime, server_default=sqlalchemy.sql.func.now())
     changedby = UUIDFKey(nullable=True)#Column(ForeignKey("users.id"), index=True, nullable=True)

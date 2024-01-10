@@ -2,8 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-from uuid import UUID 
-
+import uuid
 from typing import Optional, List, Union, Annotated
 
 def getLoaders(info):
@@ -16,7 +15,7 @@ def getUser(info):
 @strawberryA.federation.type(keys=["id"], description="Bc., Ing., ...")
 class AcProgramTitleTypeGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).programtitletypes
         result = await loader.load(id)
         if result is not None:
@@ -24,7 +23,7 @@ class AcProgramTitleTypeGQLModel:
         return result
 
     @strawberryA.field(description="primary key")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="name")
@@ -46,7 +45,7 @@ class AcProgramTitleTypeGQLModel:
 #################################################
 @strawberryA.field(description="""Finds a program title by its id""")
 async def program_title_by_id(
-        self, info: strawberryA.types.Info, id: UUID
+        self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> Union["AcProgramTitleTypeGQLModel", None]:
         result = await AcProgramTitleTypeGQLModel.resolve_reference(info, id)
         return result

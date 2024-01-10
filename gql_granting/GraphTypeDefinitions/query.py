@@ -24,5 +24,19 @@ class Query:
     actopic_by_id = actopic_by_id
     from .AcProgramTypeGQLModel import program_type_by_id
     program_type_by_id = program_type_by_id
+    from .AcClassificationTypeGQLModel import acclassification_type_page
+    acclassification_type_page = acclassification_type_page
+    from .AcClassificationTypeGQLModel import classification_type_by_id
+    classification_type_by_id = classification_type_by_id
+    from .AcProgramLanguageTypeGQLModel import program_language_by_id
+    program_language_by_id = program_language_by_id
+    from .AcProgramTitleTypeGQLModel import program_title_by_id
+    program_title_by_id = program_title_by_id
+    from .AcProgramLevelTypeGQLModel import program_level_by_id
+    program_level_by_id = program_level_by_id
+    from .AcProgramFormTypeGQLModel import program_form_by_id
+    program_form_by_id = program_form_by_id
+    from .AcLessonTypeGQLModel import aclesson_type_by_id
+    aclesson_type_by_id = aclesson_type_by_id
     pass
       

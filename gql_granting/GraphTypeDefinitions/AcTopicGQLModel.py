@@ -2,8 +2,7 @@ import strawberry
 import datetime
 import asyncio
 import strawberry as strawberryA
-from uuid import UUID 
-
+import uuid
 #from .AcSemesterGQLModel import AcSemesterGQLModel
 #from .AcLessonGQLModel import AcLessonGQLModel
 
@@ -22,15 +21,17 @@ AcLessonGQLModel= Annotated["AcLessonGQLModel",strawberryA.lazy(".AcLessonGQLMod
 )
 class AcTopicGQLModel:
     @classmethod
-    async def resolve_reference(cls, info: strawberryA.types.Info, id: UUID):
+    async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).topics
+        if isinstance(id, str): id = uuid.UUID(id)
+        print("AcTopicGQLModel.resolve_reference", type(id))
         result = await loader.load(id)
         if result is not None:
             result.__strawberry_definition__ = cls.__strawberry_definition__  # little hack :)
         return result
 
     @strawberryA.field(description="""primary key""")
-    def id(self) -> UUID:
+    def id(self) -> uuid.UUID:
         return self.id
 
     @strawberryA.field(description="""name ("Introduction")""")
@@ -68,7 +69,7 @@ class AcTopicGQLModel:
 #################################################
 @strawberryA.field(description="""Finds a topic by its id""")
 async def actopic_by_id(
-        self, info: strawberryA.types.Info, id: UUID
+        self, info: strawberryA.types.Info, id: uuid.UUID
     ) -> Union["AcTopicGQLModel", None]:
         result = await AcTopicGQLModel.resolve_reference(info, id)
         return result
@@ -82,15 +83,15 @@ async def actopic_by_id(
 
 @strawberryA.input
 class TopicInsertGQLModel:
-    semester_id: UUID
+    semester_id: uuid.UUID
     order: Optional[int] = 0
     name: Optional[str] = "New Topic"
     name_en: Optional[str] = "New Topic"
-    id: Optional[UUID] = None
+    id: Optional[uuid.UUID] = None
 
 @strawberryA.input
 class TopicUpdateGQLModel:
-    id: UUID
+    id: uuid.UUID
     lastchange: datetime.datetime
     order: Optional[int] = None
     name: Optional[str] = None
@@ -98,7 +99,7 @@ class TopicUpdateGQLModel:
 
 @strawberryA.type
 class TopicResultGQLModel:
-    id: UUID = None
+    id: uuid.UUID = None
     msg: str = None
 
     @strawberryA.field(description="""Result of topic operation""")

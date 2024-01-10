@@ -24,6 +24,7 @@ class AcProgramTypeGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
         loader = getLoaders(info).programtypes
+        if isinstance(id, str): id = uuid.UUID(id)
         result = await loader.load(id)
         if result is not None:
             result.__strawberry_definition__ = cls.__strawberry_definition__  # little hack :)

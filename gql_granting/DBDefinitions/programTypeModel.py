@@ -24,4 +24,4 @@ class ProgramTypeModel(BaseModel):
     level_id = Column(ForeignKey("acprogramlevels.id"), index=True)
     title_id = Column(ForeignKey("acprogramtitles.id"), index=True)
     # combination
-    # programs = relationship("programModel", back_populates ="type", uselist= True)
+    programs = relationship("ProgramModel", back_populates ="type", uselist= True)

@@ -118,10 +118,11 @@ class ProgramWhereFilter:
 
 @strawberryA.field(description="""Finds all programs""")
 async def program_page( 
-        self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10
+        self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, where : Optional[ProgramWhereFilter] = None
     ) -> List["AcProgramGQLModel"]:
+        where_dictionary = strawberryA.asdict(where) if where is not None else None
         loader = getLoaders(info).programs 
-        result = await loader.page(skip=skip, limit=limit)
+        result = await loader.page(skip=skip, limit=limit,where = where_dictionary)
         return result
     
 #################################################

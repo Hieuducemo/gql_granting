@@ -5,7 +5,7 @@ import strawberry as strawberryA
 from contextlib import asynccontextmanager
 from gql_granting.GraphResolvers import resolveProgramForGroup, resolveJSONForProgram
 from .AcClassificationGQLModel import AcClassificationGQLModel
-from uuid import UUID
+import uuid
 AcProgramGQLModel= Annotated["AcProgramGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
 @asynccontextmanager
 async def withInfo(info):
@@ -21,10 +21,10 @@ def getLoaders(info):
 
 @strawberryA.federation.type(extend=True, keys=["id"])
 class GroupGQLModel:
-    id: UUID = strawberryA.federation.field(external=True)
+    id: uuid.UUID = strawberryA.federation.field(external=True)
 
     @classmethod
-    async def resolve_reference(cls, id: UUID):
+    async def resolve_reference(cls, id: uuid.UUID):
         return GroupGQLModel(id=id)  # jestlize rozsirujete, musi byt tento vyraz
     async def program(
         self, info: strawberryA.types.Info
@@ -36,9 +36,9 @@ class GroupGQLModel:
 
 @strawberryA.federation.type(extend=True, keys=["id"])
 class UserGQLModel:
-    id: UUID = strawberryA.federation.field(external=True)
+    id: uuid.UUID = strawberryA.federation.field(external=True)
     @classmethod
-    async def resolve_reference(cls, id:UUID):
+    async def resolve_reference(cls, id:uuid.UUID):
         return UserGQLModel(id=id)  # jestlize rozsirujete, musi byt tento vyraz
 
 #     zde je rozsireni o dalsi resolvery
