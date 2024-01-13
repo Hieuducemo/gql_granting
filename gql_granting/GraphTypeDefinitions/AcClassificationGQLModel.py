@@ -108,7 +108,7 @@ class ClassificationWhereFilter:
     classficationtype_id : uuid.UUID  
     createdby : uuid.UUID
     from .AcClassificationTypeGQLModel import ClassificationTypeWhereFilter
-    type: ClassificationTypeWhereFilter 
+    # type: ClassificationTypeWhereFilter 
     
 @strawberryA.field(description="""Lists classifications for the user""")
 async def acclassification_page_by_user(

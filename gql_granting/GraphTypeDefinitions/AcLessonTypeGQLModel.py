@@ -61,7 +61,7 @@ class LessonTypeWhereFilter:
      name_en : str 
      createdby : uuid.UUID 
      
-     lessons : LessonWhereFilter 
+    #  lessons : LessonWhereFilter 
      
 @strawberryA.field(description="""Gets all lesson types""")
 async def aclesson_type_page(

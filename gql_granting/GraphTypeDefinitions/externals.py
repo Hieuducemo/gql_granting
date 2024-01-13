@@ -19,6 +19,10 @@ async def withInfo(info):
 def getLoaders(info):
     return info.context['all']
 
+@classmethod
+async def resolve_reference(cls, info: strawberry.types.Info, id: uuid.UUID):
+    return cls(id=id)
+
 @strawberryA.federation.type(extend=True, keys=["id"])
 class GroupGQLModel:
     id: uuid.UUID = strawberryA.federation.field(external=True)
@@ -60,3 +64,16 @@ class UserGQLModel:
         loader = getLoaders(info).classifications
         result = await loader.filter_by(user_id=self.id)       
         return result
+ 
+from gql_granting.Dataloaders import getLoadersFromInfo 
+    
+@strawberry.federation.type(extend=True, keys=["id"])
+class RBACObjectGQLModel:
+    id: uuid.UUID = strawberry.federation.field(external=True)
+    resolve_reference = resolve_reference
+
+    @classmethod
+    async def resolve_roles(cls, info: strawberry.types.Info, id: uuid.UUID):
+        loader = getLoadersFromInfo(info).authorizations
+        authorizedroles = await loader.load(id)
+        return authorizedroles

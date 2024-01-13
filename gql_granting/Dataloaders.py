@@ -146,6 +146,19 @@ dbmodels = {
     "lessons": LessonModel,
     "lessontypes": LessonTypeModel
 }
+class Loaders:
+    authorizations = None
+    requests = None
+    histories = None
+    forms = None
+    formtypes = None
+    formcategories = None
+    sections = None
+    parts = None
+    items = None
+    itemtypes = None
+    itemcategories = None
+    pass
 
 def createLoaders(asyncSessionMaker, models=dbmodels):
     def createLambda(loaderName, DBModel):
@@ -157,3 +170,25 @@ def createLoaders(asyncSessionMaker, models=dbmodels):
     
     Loaders = type('Loaders', (), attrs)   
     return Loaders()
+
+def createLoadersContext(asyncSessionMaker):
+    return {
+        "loaders": createLoaders(asyncSessionMaker)
+    }
+
+def createUgConnectionContext(request):
+    from .gql_ug_proxy import get_ug_connection
+    connection = get_ug_connection(request=request)
+    return {
+        "ug_connection": connection
+    }
+
+def getLoadersFromInfo(info) -> Loaders:
+    context = info.context
+    loaders = context["loaders"]
+    return loaders
+
+def getLoadersFromInfo(info) -> Loaders:
+    context = info.context
+    loaders = context["loaders"]
+    return loaders

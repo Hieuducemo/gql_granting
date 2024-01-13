@@ -91,7 +91,7 @@ class ProgramTypeWhereFilter:
     name_en: str 
     id: uuid.UUID 
     
-    programs: ProgramWhereFilter 
+    # programs: ProgramWhereFilter 
     
 #################################################
 #

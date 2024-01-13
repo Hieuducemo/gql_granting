@@ -114,7 +114,7 @@ class ProgramWhereFilter:
     type_id : uuid.UUID
     createdby: uuid.UUID
     from .AcProgramTypeGQLModel import ProgramTypeWhereFilter
-    type: ProgramTypeWhereFilter
+    # type: ProgramTypeWhereFilter
 
 @strawberryA.field(description="""Finds all programs""")
 async def program_page( 

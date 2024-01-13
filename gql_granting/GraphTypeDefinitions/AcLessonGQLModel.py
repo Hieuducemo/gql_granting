@@ -89,7 +89,7 @@ class LessonWhereFilter:
    type_id : uuid.UUID 
    createdby : uuid.UUID 
    from .AcLessonTypeGQLModel import LessonTypeWhereFilter 
-   type: LessonTypeWhereFilter      
+#    type: LessonTypeWhereFilter      
 
 @strawberryA.field(description="""Gets all lesson types""")
 async def aclesson_type_page(

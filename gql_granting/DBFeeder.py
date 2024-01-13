@@ -412,7 +412,7 @@ def get_demodata():
 async def initDB(asyncSessionMaker):
 
     demo = os.environ.get("DEMO", None)
-    if demo not in [None, "true"]:
+    if demo not in [None, "True"]:
         dbModels = [
             ProgramFormTypeModel,
             ProgramLanguageTypeModel,

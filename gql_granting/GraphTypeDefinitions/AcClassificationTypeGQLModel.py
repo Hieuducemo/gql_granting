@@ -79,4 +79,4 @@ class ClassificationTypeWhereFilter:
     name_en : str 
     createdby :uuid.UUID 
     
-    classifications: ClassificationWhereFilter 
+    # classifications: ClassificationWhereFilter 
