@@ -5,7 +5,7 @@ import strawberry as strawberryA
 import typing
 import uuid
 from typing import Optional, List, Union, Annotated
-from .AcProgramEditorGQLModel import AcProgramEditorGQLModel
+# from .AcProgramEditorGQLModel import AcProgramEditorGQLModel
 #from .AcSubjectGQLModel import AcSubjectGQLModel
 def getLoaders(info):
     return info.context['all']
@@ -53,9 +53,9 @@ class AcProgramGQLModel:
         result = await AcProgramTypeGQLModel.resolve_reference(info, self.type_id)
         return result
 
-    @strawberryA.field(description="""""")
-    def editor(self) -> "AcProgramEditorGQLModel":
-        return self
+    # @strawberryA.field(description="""""")
+    # def editor(self) -> "AcProgramEditorGQLModel":
+    #     return self
 
     @strawberryA.field(description="""subjects in the program""")
     async def subjects(self, info: strawberryA.types.Info) -> List["AcSubjectGQLModel"]:
@@ -106,21 +106,23 @@ async def program_by_id(
 from dataclasses import dataclass 
 from uoishelpers.resolvers import createInputs
 
-@createInputs
-@dataclass 
-class ProgramWhereFilter:
-    name: str 
-    name_en:str 
-    type_id : uuid.UUID
-    createdby: uuid.UUID
-    from .AcProgramTypeGQLModel import ProgramTypeWhereFilter
-    # type: ProgramTypeWhereFilter
+# @createInputs
+# @dataclass 
+# class ProgramWhereFilter:
+#     name: str 
+#     name_en:str 
+#     type_id : uuid.UUID
+#     createdby: uuid.UUID
+#     from .AcProgramTypeGQLModel import ProgramTypeWhereFilter
+#     type: ProgramTypeWhereFilter
 
 @strawberryA.field(description="""Finds all programs""")
 async def program_page( 
-        self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, where : Optional[ProgramWhereFilter] = None
+        self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, 
+        # self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, where : Optional[ProgramWhereFilter] = None
     ) -> List["AcProgramGQLModel"]:
-        where_dictionary = strawberryA.asdict(where) if where is not None else None
+        where_dictionary = None
+        #  where_dictionary = strawberryA.asdict(where) if where is not None else None
         loader = getLoaders(info).programs 
         result = await loader.page(skip=skip, limit=limit,where = where_dictionary)
         return result

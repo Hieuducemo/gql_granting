@@ -2,13 +2,13 @@ import pytest
 from gql_granting.GraphTypeDefinitions import schema
 import datetime
 
-from ..shared import (
-    prepare_demodata,
-    prepare_in_memory_sqllite,
-    get_demodata,
-    createContext,
-)
-from ..gqlshared import (
+# from ..shared import (
+#     prepare_demodata,
+#     prepare_in_memory_sqllite,
+#     get_demodata,
+#     createContext,
+# )
+from .gt_utils import (
     createByIdTest, 
     createPageTest, 
     createResolveReferenceTest, 

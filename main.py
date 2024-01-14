@@ -200,6 +200,7 @@ async def get_context(request: Request):
     connectionContext = createUgConnectionContext(request=request)
     result = {**context, **connectionContext}
     result["request"] = request
+    result["all"] = result["loaders"]
     result["user"] = request.scope.get("user", None)
     logging.info(f"context created {result}")
     return result

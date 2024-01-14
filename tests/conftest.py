@@ -19,30 +19,30 @@ serversTestscope = "function"
 @pytest.fixture
 def DBModels():
     from gql_granting.DBDefinitions import (
-        classificationModel,
-        classificationTypeModel,
-        lessonTypeModel,
-        lessonModel,
-        programModel,
-        programTypeModel,
-        subjectModel,
-        semesterModel,
-        topicModel,
+        ClassificationModel,
+        ClassificationTypeModel,
+        LessonTypeModel,
+        LessonModel,
+        ProgramModel,
+        ProgramTypeModel,
+        SubjectModel,
+        SemesterModel,
+        TopicModel,
         
     )
     ##
     # order is important!
     ##
     return  [
-        classificationModel,
-        classificationTypeModel,
-        lessonTypeModel,
-        lessonModel,
-        programModel,
-        programTypeModel,
-        subjectModel,
-        semesterModel,
-        topicModel,
+        ClassificationTypeModel,
+        LessonTypeModel,
+        ProgramTypeModel,
+        ProgramModel,
+        SubjectModel,
+        ClassificationModel,     
+        SemesterModel,                
+        LessonModel,
+        TopicModel,
         ]
 
 from gql_granting.DBFeeder import get_demodata
@@ -86,7 +86,7 @@ async def SQLite(Async_Session_Maker, DemoData, DBModels):
 def LoadersContext(SQLite):
     from gql_granting.Dataloaders import createLoadersContext
     context = createLoadersContext(SQLite)
-    return context
+    return {**context, "all":context["loaders"]}
 
 @pytest.fixture
 def Request(AuthorizationHeaders):

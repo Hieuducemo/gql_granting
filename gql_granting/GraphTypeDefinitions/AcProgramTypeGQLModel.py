@@ -83,7 +83,7 @@ async def program_type_by_id(
 from dataclasses import dataclass
 from uoishelpers.resolvers import createInputs
 
-ProgramWhereFilter = Annotated["ProgramWhereFilter", strawberryA.lazy(".AcProgramGQLModel")]
+# ProgramWhereFilter = Annotated["ProgramWhereFilter", strawberryA.lazy(".AcProgramGQLModel")]
 @createInputs
 @dataclass 
 class ProgramTypeWhereFilter: 
@@ -91,7 +91,7 @@ class ProgramTypeWhereFilter:
     name_en: str 
     id: uuid.UUID 
     
-    # programs: ProgramWhereFilter 
+    #programs: ProgramWhereFilter 
     
 #################################################
 #
