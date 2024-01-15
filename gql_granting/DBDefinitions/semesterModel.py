@@ -9,6 +9,7 @@ class SemesterModel(BaseModel):
     id = UUIDColumn()
     order = Column(Integer)
     credits = Column(Integer)
+    name = Column(String)
     subject_id = Column(ForeignKey("acsubjects.id"), index=True)
     classificationtype_id = Column(ForeignKey("acclassificationtypes.id"), index=True)
 

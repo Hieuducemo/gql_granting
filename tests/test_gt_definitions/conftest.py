@@ -6,28 +6,28 @@ import uuid
 @pytest_asyncio.fixture
 async def GQLInsertQueries():
     result = {
-        "forms": {
+        "acprograms": {
             "create": """
-mutation ($id: UUID!, $name: String!, $type_id: UUID!, $name_en: String!) {
-  formInsert(
-    form: {id: $id, name: $name, typeId: $type_id, nameEn: $name_en}
+mutation ($typeId: UUID!, $name: String!) {
+  programInsert(
+    program: {typeId: $typeId, name: $name}
   ) {
     id
     msg
   }
 }""",
-            "read": """query($id: UUID!){ result: formById(id: $id) { id }}""",
+            "read": """query($id: UUID!){ result: programById(id: $id) { id }}""",
 },
-        "formsections": {"create": """
-mutation ($id: UUID!, $name: String!, $order: Int!, $name_en: String!, $form_id: UUID!) {
-  formSectionInsert(
-    section: {id: $id, name: $name, order: $order, nameEn: $name_en, formId: $form_id}
+        "acprogramtypes": {"create": """
+mutation ($formId: UUID!, $name: String!,$languageId: UUID!,$levelId:UUID!,$nameEn:String!,$titleId:UUID!) {
+  programTypeInsert(
+    programType: {formId: $formId, name: $name,languageId: $languageId,levelId:$levelId,nameEn:$nameEn,titleId:$titleId}
   ) {
     id
     msg
   }
 }""",
-            "read": """query($id: UUID!){ result: formSectionById(id: $id) { id }}""",
+            "read": """query($id: UUID!){ result: programTypeById(id: $id) { id }}""",
 },
         "formparts":{"create": """
 mutation ($id: UUID!, $name: String!, $order: Int!, $name_en: String!, $section_id: UUID!) {

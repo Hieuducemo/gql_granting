@@ -37,7 +37,7 @@ class AcProgramFormTypeGQLModel:
         return self.name_en
 
     @strawberryA.field(description="")
-    def lastchange(self) -> str:
+    def lastchange(self) -> datetime.datetime:
         return self.lastchange
 
 

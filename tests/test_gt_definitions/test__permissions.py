@@ -247,7 +247,7 @@ async def test_low_role2(DemoFalse, ClientExecutorNoAdmin2, FillDataViaGQL, Cont
     query($id: UUID!) { 
         result: programById(id: $id) { 
             id          
-            editor { id }
+            subjects { id }
         }
     }
     """

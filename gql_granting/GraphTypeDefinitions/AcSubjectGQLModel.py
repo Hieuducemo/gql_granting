@@ -51,7 +51,7 @@ class AcSubjectGQLModel:
         return self.name_en
 
     @strawberryA.field(description="""datetime laschange""")
-    def lastchange(self) -> str:
+    def lastchange(self) -> datetime.datetime:
         return self.lastchange
 
     @strawberryA.field(description="""Program owing this subjects""")

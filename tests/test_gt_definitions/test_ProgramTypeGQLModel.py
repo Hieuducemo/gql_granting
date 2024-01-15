@@ -28,10 +28,8 @@ test_program_type_insert = createFrontendQuery(query="""
                 id
                 name
                 nameEn
-                form { id }
-                language { id }
-                level { id }
-                title { id }
+                
+                
             }
         }
     }

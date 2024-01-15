@@ -34,7 +34,11 @@ class AcSemesterGQLModel:
     @strawberryA.field(description="""primary key""")
     def id(self) -> uuid.UUID:
         return self.id
-
+    
+    @strawberryA.field(description="""name""")
+    def name(self) -> str:
+        return self.name
+    
     @strawberryA.field(description="""semester number""")
     def order(self) -> int:
         return self.order

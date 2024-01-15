@@ -1449,6 +1449,7 @@
     "acsemesters": [
         {
             "id": "ce250af4-b095-11ed-9bd8-0242ac110002",
+            "name":"123e",
             "subject_id": "ce250a68-b095-11ed-9bd8-0242ac110002",
             "classificationtype_id": "a00a0642-b095-11ed-9bd8-0242ac110002",
             "lastchange": "2023-04-19T08:00:00",
@@ -1456,6 +1457,7 @@
         },
         {
             "id": "85c0db4a-148c-477e-ad5b-3985eaba1f90",
+            "name":"123e",
             "subject_id": "ce250a68-b095-11ed-9bd8-0242ac110002",
             "classificationtype_id": "a00a0642-b095-11ed-9bd8-0242ac110002",
             "lastchange": "2023-04-19T08:00:00",
@@ -1463,6 +1465,7 @@
         },
         {
             "id": "0e9ff40a-722c-472a-b08c-b7d892a41b59",
+            "name":"123e",
             "subject_id": "ce250a68-b095-11ed-9bd8-0242ac110002",
             "classificationtype_id": "a00a0642-b095-11ed-9bd8-0242ac110002",
             "lastchange": "2023-04-19T08:00:00",
@@ -1470,6 +1473,7 @@
         },
         {
             "id": "f6f0cca7-d5b1-4ab6-881f-792b964fe261",
+            "name":"123e",
             "subject_id": "3ed497ea-ab40-4e94-a93e-9d9627497652",
             "classificationtype_id": "a00a0642-b095-11ed-9bd8-0242ac110002",
             "lastchange": "2023-04-19T08:00:00",
@@ -1477,6 +1481,7 @@
         },
         {
             "id": "e1ab1551-0c3d-4f1c-b2d5-f5c053f28b95",
+            "name":"123e",
             "subject_id": "3ed497ea-ab40-4e94-a93e-9d9627497652",
             "classificationtype_id": "a00a0642-b095-11ed-9bd8-0242ac110002",
             "lastchange": "2023-04-19T08:00:00",
@@ -1484,6 +1489,7 @@
         },
         {
             "id": "765eb469-6fab-4cd4-b536-288bb77c6e2d",
+            "name":"123e",
             "subject_id": "3ed497ea-ab40-4e94-a93e-9d9627497652",
             "classificationtype_id": "a00a0642-b095-11ed-9bd8-0242ac110002",
             "lastchange": "2023-04-19T08:00:00",
