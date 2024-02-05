@@ -10,8 +10,8 @@ from .AcClassificationTypeGQLModel import AcClassificationTypeGQLModel
 
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".externals")]
 AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemesterGQLModel")]
@@ -23,16 +23,12 @@ AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemester
 class AcClassificationGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
-
-        # print("AcClassificationGQLModel.resolve_reference")
-        # print("AcClassificationGQLModel.resolve_reference", id)
-        print("AcClassificationGQLModel.resolve_reference", type(id))
-        # print("AcClassificationGQLModel.resolve_reference", info)
+        
         if not isinstance(id, uuid.UUID):
             id = uuid.UUID(id)
             
         loader = getLoaders(info).classifications
-        # print("AcClassificationGQLModel.resolve_reference", loader)
+        
         result = await loader.load(id)
         print(result)
         if result is not None:
@@ -108,7 +104,7 @@ class ClassificationWhereFilter:
     classficationtype_id : uuid.UUID  
     createdby : uuid.UUID
     from .AcClassificationTypeGQLModel import ClassificationTypeWhereFilter
-    # type: ClassificationTypeWhereFilter 
+    #type: ClassificationTypeWhereFilter 
     
 @strawberryA.field(description="""Lists classifications for the user""")
 async def acclassification_page_by_user(
@@ -166,7 +162,7 @@ async def classification_update(self, info: strawberryA.types.Info, classificati
         result = ClassificationResultGQLModel()
         result.msg = "ok"
         result.id = classification.id
-        if row is None:
-            result.msg = "fail"
+        # if row is None:
+        #     result.msg = "fail"
             
         return result

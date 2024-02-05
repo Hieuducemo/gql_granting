@@ -8,8 +8,8 @@ from typing import Optional, List, Union, Annotated
 
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"] 
+# def getUser(info):
+#     return info.context["user"] 
 
 #UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
 
@@ -17,6 +17,8 @@ def getUser(info):
 class AcProgramLevelTypeGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
+        if isinstance(id, str):
+             id = uuid.UUID(id)
         loader = getLoaders(info).programleveltypes
         result = await loader.load(id)
         if result is not None:

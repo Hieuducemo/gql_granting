@@ -10,8 +10,8 @@ from .AcLessonTypeGQLModel import AcLessonTypeGQLModel
 #from .AcTopicGQLModel import AcTopicGQLModel
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel")]
 
@@ -22,8 +22,6 @@ AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel"
 class AcLessonGQLModel:
     @classmethod
     async def resolve_reference(cls, info: strawberryA.types.Info, id: uuid.UUID):
-        print("AcLessonGQLModel.resolve_reference", id)
-        print("AcLessonGQLModel.resolve_reference", type(id))
         if isinstance(id, str):
              id = uuid.UUID(id)
 

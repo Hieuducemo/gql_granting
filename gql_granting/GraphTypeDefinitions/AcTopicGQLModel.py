@@ -9,8 +9,8 @@ import uuid
 from typing import Optional, List, Union, Annotated
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 AcSemesterGQLModel= Annotated["AcSemesterGQLModel",strawberryA.lazy(".AcSemesterGQLModel")]
 AcLessonGQLModel= Annotated["AcLessonGQLModel",strawberryA.lazy(".AcLessonGQLModel")]
@@ -56,11 +56,11 @@ class AcTopicGQLModel:
         result = await AcSemesterGQLModel.resolve_reference(info, self.semester_id)
         return result
 
-    @strawberryA.field(description="""Lessons for a topic""")
-    async def lessons(self, info: strawberryA.types.Info) -> List["AcLessonGQLModel"]:
-        loader = getLoaders(info).lessons
-        result = await loader.filter_by(topic_id=self.id)
-        return result
+    # @strawberryA.field(description="""Lessons for a topic""")
+    # async def lessons(self, info: strawberryA.types.Info) -> List["AcLessonGQLModel"]:
+    #     loader = getLoaders(info).lessons
+    #     result = await loader.filter_by(topic_id=self.id)
+    #     return result
 
 #################################################
 #

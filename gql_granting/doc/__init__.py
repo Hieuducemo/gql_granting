@@ -8,7 +8,7 @@ def attachVoyager(app, path="/voyager"):
     
     @app.get(path, response_class=FileResponse)
     async def gql_schema_visualizer():
-        realpath = os.path.realpath("./doc/voyager.html")
+        realpath = os.path.realpath("gql_granting\doc\voyager.html")
         return realpath    
     
     return gql_schema_visualizer

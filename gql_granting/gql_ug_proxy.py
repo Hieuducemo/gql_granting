@@ -24,22 +24,22 @@ def createProxy(url):
         #             return responsejson
         
     class Proxy:
-        @asynccontextmanager
-        async def Session(self, authorizationToken):
-            result = self.connection(authorizationToken=authorizationToken)
-            yield result
-            pass
+        # @asynccontextmanager
+        # async def Session(self, authorizationToken):
+        #     result = self.connection(authorizationToken=authorizationToken)
+        #     yield result
+        #     pass
             
         @cache
         def connection(self, authorizationToken):
             result = _Session(authorizationToken=authorizationToken)
             return result
         
-        def post(self, query, variables={}):
-            json = {"query": query, "variables": variables}
-            response = requests.post(url=url, json=json)
-            result = response.json()
-            return result
+        # def post(self, query, variables={}):
+        #     json = {"query": query, "variables": variables}
+        #     response = requests.post(url=url, json=json)
+        #     result = response.json()
+        #     return result
 
     return Proxy()
 
@@ -51,9 +51,9 @@ def get_ug_connection(request: Request):
 
     authorizationToken = None
     authorizationBrearer = request.headers.get("authorization", None)
-    if authorizationBrearer is None:
-        authorizationToken = request.cookies.get("authorization", None)
-    else:
-        [_, authorizationToken, *__] = authorizationBrearer.split(" ")
+    # if authorizationBrearer is None:
+    #     authorizationToken = request.cookies.get("authorization", None)
+    # else:
+    #     [_, authorizationToken, *__] = authorizationBrearer.split(" ")
 
     return gqlproxy.connection(authorizationToken=authorizationToken)

@@ -7,11 +7,11 @@ from typing import Optional, List, Union, Annotated
 import typing
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".externals")]
-#UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
+
 
 @strawberryA.federation.type(
     keys=["id"], description="Classification at the end of semester"

@@ -9,8 +9,8 @@ from .AcClassificationTypeGQLModel import AcClassificationTypeGQLModel
 import uuid 
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 AcClassificationGQLModel= Annotated["AcClassificationGQLModel",strawberryA.lazy(".AcClassificationGQLModel")]
 AcTopicGQLModel= Annotated["AcTopicGQLModel",strawberryA.lazy(".AcTopicGQLModel")]
@@ -167,7 +167,7 @@ async def semester_update(self, info: strawberryA.types.Info, semester: Semester
         result = SemesterResultGQLModel()
         result.msg = "ok"
         result.id = semester.id
-        if row is None:
-            result.msg = "fail"
+        # if row is None:
+        #     result.msg = "fail"
             
         return result

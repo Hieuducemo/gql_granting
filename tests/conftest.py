@@ -21,10 +21,15 @@ def DBModels():
     from gql_granting.DBDefinitions import (
         ClassificationModel,
         ClassificationTypeModel,
+        ClassificationLevelModel,
         LessonTypeModel,
         LessonModel,
         ProgramModel,
         ProgramTypeModel,
+        ProgramFormTypeModel,
+        ProgramTitleTypeModel,
+        ProgramLevelTypeModel,
+        ProgramLanguageTypeModel,
         SubjectModel,
         SemesterModel,
         TopicModel,
@@ -34,9 +39,14 @@ def DBModels():
     # order is important!
     ##
     return  [
+        ClassificationLevelModel,
         ClassificationTypeModel,
         LessonTypeModel,
         ProgramTypeModel,
+        ProgramLanguageTypeModel,
+        ProgramFormTypeModel,
+        ProgramTitleTypeModel,
+        ProgramLevelTypeModel,
         ProgramModel,
         SubjectModel,
         ClassificationModel,     

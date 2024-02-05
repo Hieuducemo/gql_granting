@@ -5,12 +5,13 @@ import strawberry as strawberryA
 import typing
 import uuid
 from typing import Optional, List, Union, Annotated
+from gql_granting.GraphPermissions import OnlyForAuthentized
 # from .AcProgramEditorGQLModel import AcProgramEditorGQLModel
 #from .AcSubjectGQLModel import AcSubjectGQLModel
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".externals")]
 AcSubjectGQLModel = Annotated["AcSubjectGQLModel",strawberryA.lazy(".AcSubjectGQLModel")]
@@ -47,7 +48,8 @@ class AcProgramGQLModel:
     def lastchange(self) -> datetime.datetime:
         return self.lastchange
 
-    @strawberryA.field(description="""Bachelor, ...""")
+    @strawberryA.field(description="""Bachelor, ...""",
+                       permission_classes= [OnlyForAuthentized()])
     async def type(self, info: strawberryA.types.Info) -> Optional["AcProgramTypeGQLModel"]:
         from .AcProgramTypeGQLModel import AcProgramTypeGQLModel
         result = await AcProgramTypeGQLModel.resolve_reference(info, self.type_id)
@@ -57,27 +59,30 @@ class AcProgramGQLModel:
     # def editor(self) -> "AcProgramEditorGQLModel":
     #     return self
 
-    @strawberryA.field(description="""subjects in the program""")
+    @strawberryA.field(description="""subjects in the program""",
+                       permission_classes= [OnlyForAuthentized()])
     async def subjects(self, info: strawberryA.types.Info) -> List["AcSubjectGQLModel"]:
         loader = getLoaders(info).subjects
         result = await loader.filter_by(program_id=self.id)
         return result
 
-    @strawberryA.field(description="""students in the program""")
-    async def students(self, info: strawberryA.types.Info) -> List["UserGQLModel"]:
-        loader = getLoaders(info).programstudents
-        rows = await loader.filter_by(program_id=self.id)
-        from .externals import UserGQLModel
-        userawaitables = (UserGQLModel.resolve_reference(row.student_id) for row in rows)
-        result = await asyncio.gather(*userawaitables)
-        return result
+    # @strawberryA.field(description="""students in the program""",
+    #                    permission_classes= [OnlyForAuthentized()])
+    # async def students(self, info: strawberryA.types.Info) -> List["UserGQLModel"]:
+    #     loader = getLoaders(info).programstudents
+    #     rows = await loader.filter_by(program_id=self.id)
+    #     from .externals import UserGQLModel
+    #     userawaitables = (UserGQLModel.resolve_reference(row.student_id) for row in rows)
+    #     result = await asyncio.gather(*userawaitables)
+    #     return result
 
-    @strawberryA.field(description="""group defining grants of this program""")
-    async def grants(self, info: strawberryA.types.Info) -> Optional["GroupGQLModel"]:
-        loader = getLoaders(info).programgroups
-        rows = await loader.filter_by(program_id=self.id)
-        result = next(rows, None)
-        return result
+    # @strawberryA.field(description="""group defining grants of this program""",
+    #                    permission_classes= [OnlyForAuthentized()])
+    # async def grants(self, info: strawberryA.types.Info) -> Optional["GroupGQLModel"]:
+    #     loader = getLoaders(info).programgroups
+    #     rows = await loader.filter_by(program_id=self.id)
+    #     result = next(rows, None)
+    #     return result
 
 #################################################
 #
@@ -95,7 +100,8 @@ JSON = strawberryA.scalar(
 )
 
 
-@strawberryA.field(description="""Finds an program by their id""")
+@strawberryA.field(description="""Finds an program by their id""",
+                   permission_classes= [OnlyForAuthentized()])
 async def program_by_id(
         self, info: strawberryA.types.Info, id: uuid.UUID 
     ) -> typing.Optional[AcProgramGQLModel]:
@@ -116,7 +122,7 @@ from uoishelpers.resolvers import createInputs
 #     from .AcProgramTypeGQLModel import ProgramTypeWhereFilter
 #     type: ProgramTypeWhereFilter
 
-@strawberryA.field(description="""Finds all programs""")
+@strawberryA.field(description="""Finds all programs""",permission_classes= [OnlyForAuthentized()])
 async def program_page( 
         self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, 
         # self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, where : Optional[ProgramWhereFilter] = None
@@ -176,8 +182,8 @@ async def program_update(self, info: strawberryA.types.Info, program: ProgramUpd
         result = ProgramResultGQLModel()
         result.msg = "ok"
         result.id = program.id
-        if row is None:
-            result.msg = "fail"
+        # if row is None:
+        #     result.msg = "fail"
             
         return result
 

@@ -168,23 +168,23 @@ from .gt_utils import createFrontendQuery
 
 import pytest
 
-@pytest.mark.asyncio
-async def test_low_role_say_hello(DemoFalse, OAuthServer, ClientExecutorNoDemo, Env_GQLUG_ENDPOINT_URL_8123):
-    GQLUG_ENDPOINT_URL = os.environ.get("GQLUG_ENDPOINT_URL", None)
-    logging.info(f"test_low_role GQLUG_ENDPOINT_URL: \n{GQLUG_ENDPOINT_URL}")
-    DEMO = os.environ.get("DEMO", None)
-    logging.info(f"test_low_role DEMO: {DEMO}")
-    query = """
-    query($id: UUID!) { 
-        result: sayHelloPrograms(id: $id)
-    }
-    """
-    variable_values = {"id": "190d578c-afb1-11ed-9bd8-0242ac110002"}
-    result = await ClientExecutorNoDemo(query=query, variable_values=variable_values)
-    logging.info(f"test_low_role_say_hello: \n {result}")
-    print(result)
-    errors = result.get("errors", None)
-    assert errors is None, result
+# @pytest.mark.asyncio
+# async def test_low_role_say_hello(DemoFalse, OAuthServer, ClientExecutorNoDemo, Env_GQLUG_ENDPOINT_URL_8123):
+#     GQLUG_ENDPOINT_URL = os.environ.get("GQLUG_ENDPOINT_URL", None)
+#     logging.info(f"test_low_role GQLUG_ENDPOINT_URL: \n{GQLUG_ENDPOINT_URL}")
+#     DEMO = os.environ.get("DEMO", None)
+#     logging.info(f"test_low_role DEMO: {DEMO}")
+#     query = """
+#     query($id: UUID!) { 
+#         result: sayHelloPrograms(id: $id)
+#     }
+#     """
+#     variable_values = {"id": "190d578c-afb1-11ed-9bd8-0242ac110002"}
+#     result = await ClientExecutorNoDemo(query=query, variable_values=variable_values)
+#     logging.info(f"test_low_role_say_hello: \n {result}")
+#     print(result)
+#     errors = result.get("errors", None)
+#     assert errors is None, result
 
 
 

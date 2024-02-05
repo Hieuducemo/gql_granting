@@ -12,8 +12,8 @@ from typing import Optional, List, Union, Annotated
 import strawberry as strawberryA
 def getLoaders(info):
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 #UserGQLModel= Annotated["UserGQLModel",strawberryA.lazy(".granting")]
 
@@ -68,12 +68,12 @@ class AcSubjectGQLModel:
         result = await loader.filter_by(subject_id=self.id)
         return result
 
-    @strawberryA.field(description="""group defining grants of this subject""")
-    async def grants(self, info: strawberryA.types.Info) -> Optional["GroupGQLModel"]:
-        loader = getLoaders(info).programgroups
-        rows = await loader.filter_by(program_id=self.id)
-        result = next(rows, None)
-        return result
+    # @strawberryA.field(description="""group defining grants of this subject""")
+    # async def grants(self, info: strawberryA.types.Info) -> Optional["GroupGQLModel"]:
+    #     loader = getLoaders(info).programgroups
+    #     rows = await loader.filter_by(program_id=self.id)
+    #     result = next(rows, None)
+    #     return result
 
 #################################################
 #
@@ -145,7 +145,7 @@ async def subject_update(self, info: strawberryA.types.Info, subject: SubjectUpd
         result = SubjectResultGQLModel()
         result.msg = "ok"
         result.id = subject.id
-        if row is None:
-            result.msg = "fail"
+        # if row is None:
+        #     result.msg = "fail"
             
         return result

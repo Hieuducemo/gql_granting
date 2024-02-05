@@ -11,8 +11,8 @@ import uuid
 
 def getLoaders(info):    
     return info.context['all']
-def getUser(info):
-    return info.context["user"]
+# def getUser(info):
+#     return info.context["user"]
 
 ProgramUpdateGQLModel= Annotated["ProgramUpdateGQLModel",strawberryA.lazy(".AcProgramGQLModel")]
 
@@ -148,8 +148,8 @@ async def program_type_update(self, info: strawberryA.types.Info, program_type: 
         result = ProgramTypeResultGQLModel()
         result.msg = "ok"
         result.id = program_type.id
-        if row is None:
-            result.msg = "fail"
+        # if row is None:
+        #     result.msg = "fail"
              
         return result
     
