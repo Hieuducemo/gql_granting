@@ -123,7 +123,7 @@ async def topic_update(self, info: strawberryA.types.Info, topic: TopicUpdateGQL
         result = TopicResultGQLModel()
         result.msg = "ok"
         result.id = topic.id
-        if row is None:
-            result.msg = "fail"
+        # if row is None:
+        #     result.msg = "fail"
             
         return result

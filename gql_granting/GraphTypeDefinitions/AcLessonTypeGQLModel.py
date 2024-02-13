@@ -37,7 +37,7 @@ class AcLessonTypeGQLModel:
         return self.name_en
 
     @strawberryA.field(description="datetime lastchange")
-    def lastchange(self) -> str:
+    def lastchange(self) -> datetime.datetime:
         return self.lastchange
     
 #################################################
