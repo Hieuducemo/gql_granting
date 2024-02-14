@@ -30,10 +30,10 @@ class AcClassificationTypeGQLModel:
     def id(self) -> uuid.UUID:
         return self.id
     
-    @strawberryA.field(description="""User""")
-    async def user(self, info: strawberryA.types.Info) -> Optional["UserGQLModel"]:
-        from .externals import UserGQLModel
-        return await UserGQLModel.resolve_reference(id=self.user_id) 
+    # @strawberryA.field(description="""User""")
+    # async def user(self, info: strawberryA.types.Info) -> Optional["UserGQLModel"]:
+    #     from .externals import UserGQLModel
+    #     return await UserGQLModel.resolve_reference(id=self.user_id) 
     
     @strawberryA.field(description="name")
     def name(self) -> str:

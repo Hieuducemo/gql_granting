@@ -112,12 +112,12 @@ async def program_by_id(
 from dataclasses import dataclass 
 from uoishelpers.resolvers import createInputs
 
-# @createInputs
-# @dataclass 
-# class ProgramWhereFilter:
-#     name: str 
-#     name_en:str 
-#     type_id : uuid.UUID
+@createInputs
+@dataclass 
+class ProgramWhereFilter:
+    name: str 
+    name_en:str 
+    type_id : uuid.UUID
 #     createdby: uuid.UUID
 #     from .AcProgramTypeGQLModel import ProgramTypeWhereFilter
 #     type: ProgramTypeWhereFilter
@@ -125,6 +125,7 @@ from uoishelpers.resolvers import createInputs
 @strawberryA.field(description="""Finds all programs""",permission_classes= [OnlyForAuthentized()])
 async def program_page( 
         self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, 
+        where: typing.Optional[ProgramWhereFilter] = None
         # self, info: strawberryA.types.Info, skip: int = 0, limit: int = 10, where : Optional[ProgramWhereFilter] = None
     ) -> List["AcProgramGQLModel"]:
         where_dictionary = None
