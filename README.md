@@ -44,7 +44,11 @@ pytest --cov-report term-missing --cov=gql_granting tests
 
 27/11/2023 Project day 
 
+6/1/2024 coverage to 88%
 
+7/1/2024 implement where filter to programGQLModel
+
+7/2/2024 coverage to 94%
 ## how to run 
 ```bash
 uvicorn main:app --env-file environment.txt --port 8001 --reload
